@@ -1,0 +1,19 @@
+.cell {
+    background-color: rgb(53, 135, 193);
+    border-width: 10px;
+    border-color: rgb(11, 13, 14);
+    min-height: 10vw;
+    min-width: 10vw;
+}
+
+.body {
+    background-color: black;
+}
+
+#container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-around;
+    gap:1vw;
+}
