@@ -17,3 +17,7 @@
     align-content: space-around;
     gap:1vw;
 }
+
+#cell-2 {
+    background-color: yellow;
+}
