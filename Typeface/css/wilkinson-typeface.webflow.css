@@ -165,7 +165,8 @@
 }
 
 .fire {
-  margin-top: -48vh;
+  margin-top: -28vh;
+  z-index: 1;
 }
 
 .bonfire {
@@ -181,10 +182,19 @@
   mix-blend-mode: normal;
 }
 
+#moon {
+  width: 3%;
+  height: 4vw;
+  background-color: white;
+  border-radius: 50%;
+  margin-left: 130vw;
+  margin-top: 3vw;
+}
+
 .ground {
   width: 145vw;
   height: 8vh;
-  margin-top: 25vh;
+  margin-top: -2vh;
   background-color: #002104;
   background-image: url('../images/depositphotos_105102728-stock-photo-cartoon-background-of-a-grass.jpg');
   background-position: 50% 50%;
