@@ -52,13 +52,13 @@ const fireY = getOffset(fp).top + 100;
 $(document).on( "click", '#moon', function() {
     //make new stylesheet to contain all translation rules
     var element = document.createElement('style'),
-	sheet;
+	move_sheet;
 
     // Append style element to head
     document.head.appendChild(element);
 
     // Reference to the stylesheet
-    sheet = element.sheet;
+    move_sheet = element.sheet;
 
     //for each letter, calculate distance to fire 
     let x = 0;
@@ -81,13 +81,14 @@ $(document).on( "click", '#moon', function() {
         styles += '}';
 
         // Add the CSS rule to the stylesheet
-        sheet.insertRule(styles, i);
+        move_sheet.insertRule(styles, i);
 
         //add new class with new translate rule to letter
         letters[i].classList.add(moveclass);
     }
 
     $('.fireplace').addClass('explode');
+    setFireAnimation("running");
 } )
 
 function getX(letter) {
@@ -100,6 +101,54 @@ function getY(letter) {
     return fireY-letterY;
 }
 
+// ~~~~~~~~~~~~~~~~~~~~~~~
+// explosion animation code
+// ~~~~~~~~~~~~~~~~~~~~~~~
+
+var pieces = document.getElementsByClassName("piece");
+var thins = document.getElementsByClassName("thin");
+var branches = document.getElementsByClassName("branch");
+
 $(document).on( "click", '.explode', function() {
-    
+    var element = document.createElement('style'),
+	boom_sheet;
+
+    // Append style element to head
+    document.head.appendChild(element);
+
+    // Reference to the stylesheet
+    boom_sheet = element.sheet;
+
+    var new_class = "";
+    for(let i = 0; i < 190; i++) {
+        new_class = "boom" + i;
+        boom_sheet.insertRule(new_class + explode(pieces[i]), i);
+        
+        pieces[i].classList.add(new_class);
+    }
+    for(let j = 0; j < 30; j++) {
+        new_class = "boom" + j;
+        boom_sheet.insertRule(new_class + explode(thins[j]), j);
+
+        console.log(explode(thins[j]));
+        
+        thins[j].classList.add(new_class);
+    }
+    for(let k = 0; k < 32; k++) {
+        new_class = "boom" + k;
+        boom_sheet.insertRule(new_class + explode(branches[k]), k);
+        
+        branches[k].classList.add(new_class);
+    }
 } )
+
+function explode(elem) {
+    var new_style = "";
+    let rand_x = getRand(-500, 500);
+
+    return "{transform: translate(" + rand_x + "px,-1000px);}";
+}
+
+function getRand(min, max) {
+    return Math.random() * (max - min) + min;
+}
