@@ -199,7 +199,7 @@
   background-position: 0px 0px;
   background-size: auto;
 }
-
+/*
 .burn {
   display: block;
   width: 3vw;
@@ -219,7 +219,7 @@
   -webkit-transition: z-Index 0ms ease;
   transition: z-Index 0ms ease;
 }
-
+*/
 @media screen and (max-width: 991px) {
   .container {
     padding-left: 19vw;
