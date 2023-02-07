@@ -66,6 +66,7 @@
   background-position: 0px 0px;
   background-size: contain;
   background-repeat: repeat;
+  filter: brightness(70%)
 }
 
 .letter {
@@ -102,14 +103,14 @@
 .branch {
   width: 3vw;
   height: 5vh;
-  background-image: url('../images/branch.png');
+  background-image: url('../images/branch_black.png');
   background-position: 0px 0px;
   background-size: contain;
   background-repeat: no-repeat;
 }
 
 .branch.flip {
-  background-image: url('../images/flip-branch.png');
+  background-image: url('../images/branch_black_flip.png');
 }
 
 .body {
@@ -135,8 +136,8 @@
   grid-template-columns: 1fr;
   -ms-grid-rows: auto auto;
   grid-template-rows: auto auto;
-  background-color: #030341;
-  background-image: url('../images/sky.jpg');
+  background-color: #161617;
+  /*background-image: url('../images/sky.jpg');*/
   background-position: 0px 0px;
   background-size: auto;
   text-align: left;
@@ -167,8 +168,8 @@
 }
 
 .fire {
-  margin-top: -28vh;
-  z-index: 1;
+  margin-top: -40vh;
+  z-index: 0s;
 }
 
 .bonfire {
@@ -181,34 +182,6 @@
   -webkit-filter: blur(1px);
   filter: blur(1px);
   mix-blend-mode: normal;
-}
-
-#moon {
-  width: 3%;
-  height: 4vw;
-  background-color: white;
-  border-radius: 50%;
-  margin-left: 130vw;
-  margin-top: 3vw;
-}
-
-.ground {
-  width: 145vw;
-  height: 8vh;
-  margin-top: -2vh;
-  background-color: #002104;
-  background-image: url('../images/depositphotos_105102728-stock-photo-cartoon-background-of-a-grass.jpg');
-  background-position: 50% 50%;
-  background-size: contain;
-  -webkit-filter: blur(1px) brightness(69%);
-  filter: blur(1px) brightness(69%);
-  mix-blend-mode: hard-light;
-}
-
-.div-block-2 {
-  background-image: url('../images/sky.jpg');
-  background-position: 0px 0px;
-  background-size: auto;
 }
 /*
 .burn {

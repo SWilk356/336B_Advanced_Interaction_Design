@@ -5,17 +5,17 @@
   position: absolute;
   height: 0px;
   width: 0px;
-  background-color: rgb(30,30,30);
+  background-color: #161617;
   border-radius: 0%;
   top: 0%;
   right: 0%;
   animation: 5s burn-grow linear infinite;
-  border: 3px solid #192847;
+  border: 3px solid #161617;
   /*-webkit-box-shadow: inset 0px 0px 6px 2px #fffb5c00, inset 0px 0px 8px 3px rgb(52, 21, 0), 0px 0px 6px 2px #3f1c0100, 0px 0px 15px 10px rgba(105, 46, 0, 0), 0px 0px 17px 18px #401d02eb, inset 0px 0px 29px 22px #c4720f00;
   -moz-box-shadow: inset 0px 0px 6px 2px #fffb5c00, inset 0px 0px 8px 3px rgb(52, 21, 0), 0px 0px 6px 2px #3f1c0100, 0px 0px 15px 10px rgba(105, 46, 0, 0), 0px 0px 17px 18px #401d02eb, inset 0px 0px 29px 22px #c4720f00;
   box-shadow: inset 0px 0px 6px 2px #fffb5c00, inset 0px 0px 8px 3px rgb(52, 21, 0), 0px 0px 6px 2px #3f1c0100, 0px 0px 15px 10px rgba(105, 46, 0, 0), 0px 0px 17px 18px #401d02eb, inset 0px 0px 29px 22px #c4720f00;
 */
-  box-shadow: #192847;
+  box-shadow: #161617;
 }
 
 @keyframes burn-grow {
@@ -44,10 +44,10 @@
     opacity: 1;
     height: 100%;
     width: 100%;
-    border: 3px solid #192847;
+    border: 3px solid #161617;
     -webkit-box-shadow: inset 0px 0px 6px 2px #fffb5c00, inset 0px 0px 8px 3px rgb(52, 21, 0), 0px 0px 6px 2px #3f1c0100, 0px 0px 15px 10px rgba(105, 46, 0, 0), 0px 0px 17px 18px #401d02eb, inset 0px 0px 29px 22px #c4720f00;
     -moz-box-shadow: inset 0px 0px 6px 2px #fffb5c00, inset 0px 0px 8px 3px rgb(52, 21, 0), 0px 0px 6px 2px #3f1c0100, 0px 0px 15px 10px rgba(105, 46, 0, 0), 0px 0px 17px 18px #401d02eb, inset 0px 0px 29px 22px #c4720f00;
-    box-shadow: inset 0px 0px 6px 2px #192847, inset 0px 0px 8px 3px #192847, 0px 0px 6px 2px #192847, 0px 0px 15px 10px #192847, 0px 0px 17px 18px #192847, inset 0px 0px 29px 22px #192847;
+    box-shadow: inset 0px 0px 6px 2px #161617, inset 0px 0px 8px 3px #161617, 0px 0px 6px 2px #161617, 0px 0px 15px 10px #161617, 0px 0px 17px 18px #161617, inset 0px 0px 29px 22px #161617;
   }
   100% {
     opacity: 0;

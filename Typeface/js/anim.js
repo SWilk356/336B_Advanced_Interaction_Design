@@ -1,5 +1,5 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~
-//bonfire animation code
+// bonfire animation code
 // ~~~~~~~~~~~~~~~~~~~~~~~
 
 var bonfire = document.getElementsByClassName("fireplace");
@@ -8,15 +8,15 @@ var sparks = bonfire[0].getElementsByTagName("main");
 var littleFire = document.getElementsByClassName("fireplace__flame");
 var bigFire = document.getElementsByClassName("fireplace__flame_big");
 
-$(document).on( "mousedown", '.fireplace', function() {
-    //set fire animation to running
-    setFireAnimation("running");
-} )
+// $(document).on( "mousedown", '.fireplace', function() {
+//     //set fire animation to running
+//     setFireAnimation("running");
+// } )
 
-$(document).on( "mouseup", '.fireplace', function() {
-    //set fire animation to pause
-    setFireAnimation("paused");
-} )
+// $(document).on( "mouseup", '.fireplace', function() {
+//     //set fire animation to pause
+//     setFireAnimation("paused");
+// } )
 
 //set fire animation to play according to whether mouse is holding down on it or not
 function setFireAnimation(state) {
@@ -34,6 +34,7 @@ function setFireAnimation(state) {
 // ~~~~~~~~~~~~~~~~~~~~~~~
 var letters = document.getElementsByClassName("letter");
 var fireplace = document.getElementById("fp");
+var fireContainer = document.getElementsByClassName("fire");
 
 // calculate x and y pos based on relative distance to body
 // getOffset() from https://stackoverflow.com/questions/442404/retrieve-the-position-x-y-of-an-html-element
@@ -59,7 +60,8 @@ function getY(letter) {
     return fireY-letterY;
 }
 
-$(document).on( "click", '#moon', function() {
+$(document).on( "click", '.fireplace', function() {
+    //fireContainer.style.zIndex = 1;
     //make new stylesheet to contain all translation rules
     var element = document.createElement('style'),
 	move_sheet;
@@ -70,6 +72,35 @@ $(document).on( "click", '#moon', function() {
     // Reference to the stylesheet
     move_sheet = element.sheet;
 
+    //grow the fire
+    let growFire = ".fireplace {transition: all 2s; transform: scale(2.5) translate(0px,-100px);}";
+    move_sheet.insertRule(growFire, 0);
+    //move letters to the fire
+    moveLetters(move_sheet);
+
+    //create shake animation for container and the fire
+    let setShakeAnim = "";
+    let createShakeAnim = "";
+
+    setShakeAnim = ".container, .fire {";
+    setShakeAnim += "animation: 0.1s shake linear infinite; animation-play-state: running;}";
+    createShakeAnim = "@keyframes shake {";
+    createShakeAnim += "0% {transform: translateX(10px);}";
+    createShakeAnim += "50% {transform: translateX(-20px);}";
+    createShakeAnim += "100% {transform: translateX(20px);}}";
+
+    //add to new css sheet after letters have moved to the fire
+    setTimeout(() => { 
+        move_sheet.insertRule(setShakeAnim, 27);
+        move_sheet.insertRule(createShakeAnim, 28);
+     }, 1400);
+
+    //setup aesthetics for next animation
+    $('.fireplace').addClass('explode');
+    setFireAnimation("running");
+} )
+
+function moveLetters(move_sheet) {
     //for each letter, calculate distance to fire 
     let x = 0;
     let y = 0;
@@ -96,28 +127,7 @@ $(document).on( "click", '#moon', function() {
         //add new class with new translate rule to letter
         letters[i].classList.add(moveclass);
     }
-
-    //create shake animation for container
-    let setShakeAnim = "";
-    let createShakeAnim = "";
-
-    setShakeAnim = ".container {";
-    setShakeAnim += "animation: 0.1s shake linear infinite; animation-play-state: running;}";
-    createShakeAnim = "@keyframes shake {";
-    createShakeAnim += "0% {transform: translateX(10px);}";
-    createShakeAnim += "50% {transform: translateX(-20px);}";
-    createShakeAnim += "100% {transform: translateX(20px);}}";
-
-    //add to new css sheet after letters have moved to the fire
-    setTimeout(() => { 
-        move_sheet.insertRule(setShakeAnim, 26);
-        move_sheet.insertRule(createShakeAnim, 27);
-     }, 1000);
-
-    //setup aesthetics for next animation
-    $('.fireplace').addClass('explode');
-    setFireAnimation("running");
-} )
+}
 
 // ~~~~~~~~~~~~~~~~~~~~~~~
 // explosion animation code
@@ -126,6 +136,7 @@ $(document).on( "click", '#moon', function() {
 var pieces = document.getElementsByClassName("piece");
 var thins = document.getElementsByClassName("thin");
 var branches = document.getElementsByClassName("branch");
+
 
 $(document).on( "click", '.explode', function() {
     var element = document.createElement('style'),
@@ -137,8 +148,10 @@ $(document).on( "click", '.explode', function() {
     // Reference to the stylesheet
     boom_sheet = element.sheet;
 
-    var new_class = "";
+    //stop the fire from shaking because it is releasing the letters
+    fireContainer[0].style.animationPlayState = "paused";
 
+    var new_class = "";
     //for all pieces, thins, and branches, add new boom class + transform rules to new stylesheet
     for(let i = 0; i < 252; i++) {
         new_class = "boom" + i;
@@ -159,7 +172,7 @@ $(document).on( "click", '.explode', function() {
     }
 
     //end of explosion, reload the page to reset
-    setTimeout(() => { location.reload(); }, 2000);
+    setTimeout(() => { location.reload(); }, 3000);
 } )
 
 //setup explosion css with random values
@@ -176,3 +189,26 @@ function explodeStyle(elem) {
 function getRand(min, max) {
     return Math.random() * (max - min) + min;
 }
+
+// ~~~~~~~~~~~~~~~~~~~~~~~
+// individual pieces burning animation code
+// ~~~~~~~~~~~~~~~~~~~~~~~
+
+$(document).on( "mouseover", '.piece, .thin, .branch', function() {
+    $(this).addClass('burn');
+} )
+
+/*<div class="piece">
+          <div class="burn">
+            <div class="flame"></div>
+            <div class="flame"></div>
+            <div class="flame"></div>
+            <div class="flame"></div>
+            <div class="flame"></div>
+            <div class="flame"></div>
+            <div class="flame"></div>
+            <div class="flame"></div>
+            <div class="flame"></div>
+            <div class="flame"></div>
+          </div>
+        </div>*/
