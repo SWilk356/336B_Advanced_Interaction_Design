@@ -30,7 +30,7 @@ function setFireAnimation(state) {
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~
-// move letters to fire animation code
+// move letters to fire and shake animation code
 // ~~~~~~~~~~~~~~~~~~~~~~~
 var letters = document.getElementsByClassName("letter");
 var fireplace = document.getElementById("fp");
@@ -87,6 +87,21 @@ $(document).on( "click", '#moon', function() {
         letters[i].classList.add(moveclass);
     }
 
+    let setShakeAnim = "";
+    let createShakeAnim = "";
+
+    setShakeAnim = ".container {";
+    setShakeAnim += "animation: 0.1s shake linear infinite; animation-play-state: running;}";
+    createShakeAnim = "@keyframes shake {";
+    createShakeAnim += "0% {transform: translateX(10px);}";
+    createShakeAnim += "50% {transform: translateX(-20px);}";
+    createShakeAnim += "100% {transform: translateX(20px);}}";
+
+    setTimeout(() => { 
+        move_sheet.insertRule(setShakeAnim, 26);
+        move_sheet.insertRule(createShakeAnim, 27);
+     }, 1000);
+
     $('.fireplace').addClass('explode');
     setFireAnimation("running");
 } )
@@ -120,33 +135,34 @@ $(document).on( "click", '.explode', function() {
     boom_sheet = element.sheet;
 
     var new_class = "";
-    for(let i = 0; i < 190; i++) {
-        new_class = "boom" + i;
-        boom_sheet.insertRule(new_class + explode(pieces[i]), i);
-        
-        pieces[i].classList.add(new_class);
-    }
-    for(let j = 0; j < 30; j++) {
-        new_class = "boom" + j;
-        boom_sheet.insertRule(new_class + explode(thins[j]), j);
 
-        console.log(explode(thins[j]));
+    for(let i = 0; i < 252; i++) {
+        new_class = "boom" + i;
+        if (i < 190) { //190 pieces
+            boom_sheet.insertRule("." + new_class + explodeStyle(pieces[i]), i);
         
-        thins[j].classList.add(new_class);
-    }
-    for(let k = 0; k < 32; k++) {
-        new_class = "boom" + k;
-        boom_sheet.insertRule(new_class + explode(branches[k]), k);
+            pieces[i].classList.add(new_class);
+        } else if (i >= 190 && i < 220) { //30 thins
+            boom_sheet.insertRule("." + new_class + explodeStyle(thins[i-190]), i);
+            
+            thins[i-190].classList.add(new_class);
+        } else { //32 branches
+            boom_sheet.insertRule("." + new_class + explodeStyle(branches[i-220]), i);
+            
+            branches[i-220].classList.add(new_class);
+        }
         
-        branches[k].classList.add(new_class);
     }
+
+    setTimeout(() => { location.reload(); }, 2000);
 } )
 
-function explode(elem) {
+function explodeStyle(elem) {
     var new_style = "";
-    let rand_x = getRand(-500, 500);
+    let rand_x = getRand(-1000, 1000);
+    let delay = getRand(0,1);
 
-    return "{transform: translate(" + rand_x + "px,-1000px);}";
+    return "{transition-delay: " + delay + "s;" + "transform: translate(" + rand_x + "px,-1000px) rotate(720deg);}";
 }
 
 function getRand(min, max) {

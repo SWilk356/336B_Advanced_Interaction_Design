@@ -69,6 +69,8 @@
 }
 
 .letter {
+  top:0px;
+  left:0px;
   grid-auto-flow: row;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
@@ -172,7 +174,6 @@
 .bonfire {
   width: 10vw;
   height: 20vh;
-  margin-left: 30vw;
   background-image: url('../images/bonfire.png');
   background-position: 50% 50%;
   background-size: contain;

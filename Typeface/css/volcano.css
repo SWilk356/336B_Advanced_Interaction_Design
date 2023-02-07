@@ -5,3 +5,11 @@
     -ms-transition:all 1.0s ease-in-out;    
     transition:all 1.0s ease-in-out;
 }
+
+.piece, .thin, .branch {
+  -webkit-transition:all 1.0s linear;
+  -moz-transition:all 1.0s linear;
+  -o-transition:all 1.0s linear;
+  -ms-transition:all 1.0s linear;    
+  transition:all 1.0s linear;
+}

@@ -3,6 +3,7 @@
 .fireplace {
   width: 320px;
   height: 320px;
+  left: 20vw;
   position: relative;
   display: flex;
   justify-content: center;
