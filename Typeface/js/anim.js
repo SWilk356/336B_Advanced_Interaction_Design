@@ -35,8 +35,8 @@ function setFireAnimation(state) {
 var letters = document.getElementsByClassName("letter");
 var fireplace = document.getElementById("fp");
 
-// getOffset() from https://stackoverflow.com/questions/442404/retrieve-the-position-x-y-of-an-html-element
 // calculate x and y pos based on relative distance to body
+// getOffset() from https://stackoverflow.com/questions/442404/retrieve-the-position-x-y-of-an-html-element
 function getOffset(el) {
     const rect = el.getBoundingClientRect();
     return {
@@ -48,6 +48,16 @@ function getOffset(el) {
 const fireX = getOffset(fp).left + 100;
 const fireY = getOffset(fp).top + 100;
 
+//getX and getY get the letter's coordinates in the page and return the difference between its coordinates and the fire's coordinates
+function getX(letter) {
+    let letterX = getOffset(letter).left;
+    return fireX-letterX;
+}
+
+function getY(letter) {
+    let letterY = getOffset(letter).top;
+    return fireY-letterY;
+}
 
 $(document).on( "click", '#moon', function() {
     //make new stylesheet to contain all translation rules
@@ -87,6 +97,7 @@ $(document).on( "click", '#moon', function() {
         letters[i].classList.add(moveclass);
     }
 
+    //create shake animation for container
     let setShakeAnim = "";
     let createShakeAnim = "";
 
@@ -97,24 +108,16 @@ $(document).on( "click", '#moon', function() {
     createShakeAnim += "50% {transform: translateX(-20px);}";
     createShakeAnim += "100% {transform: translateX(20px);}}";
 
+    //add to new css sheet after letters have moved to the fire
     setTimeout(() => { 
         move_sheet.insertRule(setShakeAnim, 26);
         move_sheet.insertRule(createShakeAnim, 27);
      }, 1000);
 
+    //setup aesthetics for next animation
     $('.fireplace').addClass('explode');
     setFireAnimation("running");
 } )
-
-function getX(letter) {
-    let letterX = getOffset(letter).left;
-    return fireX-letterX;
-}
-
-function getY(letter) {
-    let letterY = getOffset(letter).top;
-    return fireY-letterY;
-}
 
 // ~~~~~~~~~~~~~~~~~~~~~~~
 // explosion animation code
@@ -136,6 +139,7 @@ $(document).on( "click", '.explode', function() {
 
     var new_class = "";
 
+    //for all pieces, thins, and branches, add new boom class + transform rules to new stylesheet
     for(let i = 0; i < 252; i++) {
         new_class = "boom" + i;
         if (i < 190) { //190 pieces
@@ -154,9 +158,11 @@ $(document).on( "click", '.explode', function() {
         
     }
 
+    //end of explosion, reload the page to reset
     setTimeout(() => { location.reload(); }, 2000);
 } )
 
+//setup explosion css with random values
 function explodeStyle(elem) {
     var new_style = "";
     let rand_x = getRand(-1000, 1000);
@@ -165,6 +171,8 @@ function explodeStyle(elem) {
     return "{transition-delay: " + delay + "s;" + "transform: translate(" + rand_x + "px,-1000px) rotate(720deg);}";
 }
 
+//helper to explodeStyle
+//pulled from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 function getRand(min, max) {
     return Math.random() * (max - min) + min;
 }
