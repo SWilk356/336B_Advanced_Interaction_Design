@@ -8,17 +8,7 @@ var sparks = bonfire[0].getElementsByTagName("main");
 var littleFire = document.getElementsByClassName("fireplace__flame");
 var bigFire = document.getElementsByClassName("fireplace__flame_big");
 
-// $(document).on( "mousedown", '.fireplace', function() {
-//     //set fire animation to running
-//     setFireAnimation("running");
-// } )
-
-// $(document).on( "mouseup", '.fireplace', function() {
-//     //set fire animation to pause
-//     setFireAnimation("paused");
-// } )
-
-//set fire animation to play according to whether mouse is holding down on it or not
+//set fire animation to play/pause
 function setFireAnimation(state) {
     littleFire[0].style.animationPlayState = state;
     bigFire[0].style.animationPlayState = state;
@@ -35,7 +25,6 @@ function setFireAnimation(state) {
 var letters = document.getElementsByClassName("letter");
 var fireplace = document.getElementById("fp");
 var fireContainer = document.getElementsByClassName("fire");
-
 // calculate x and y pos based on relative distance to body
 // getOffset() from https://stackoverflow.com/questions/442404/retrieve-the-position-x-y-of-an-html-element
 function getOffset(el) {
@@ -91,8 +80,8 @@ $(document).on( "click", '.fireplace', function() {
 
     //add to new css sheet after letters have moved to the fire
     setTimeout(() => { 
-        move_sheet.insertRule(setShakeAnim, 27);
-        move_sheet.insertRule(createShakeAnim, 28);
+        move_sheet.insertRule(setShakeAnim, letters.length+1);
+        move_sheet.insertRule(createShakeAnim, letters.length+2);
      }, 1400);
 
     //setup aesthetics for next animation
@@ -107,7 +96,7 @@ function moveLetters(move_sheet) {
     let trans = 0;
     let moveclass = "";
     var styles = "";
-    for(let i = 0; i < 26; i++) {
+    for(let i = 0; i < letters.length; i++) {
         //get x and y amount to translate by
         x = getX(letters[i]);
         y = getY(letters[i]);
@@ -152,21 +141,22 @@ $(document).on( "click", '.explode', function() {
     fireContainer[0].style.animationPlayState = "paused";
 
     var new_class = "";
+    var numTotalComponents = pieces.length + thins.length + branches.length;
     //for all pieces, thins, and branches, add new boom class + transform rules to new stylesheet
-    for(let i = 0; i < 252; i++) {
+    for(let i = 0; i < numTotalComponents; i++) {
         new_class = "boom" + i;
-        if (i < 190) { //190 pieces
+        if (i < pieces.length) { //190 pieces
             boom_sheet.insertRule("." + new_class + explodeStyle(pieces[i]), i);
         
             pieces[i].classList.add(new_class);
-        } else if (i >= 190 && i < 220) { //30 thins
+        } else if (i >= pieces.length && i < pieces.length + thins.length) { //30 thins
             boom_sheet.insertRule("." + new_class + explodeStyle(thins[i-190]), i);
             
-            thins[i-190].classList.add(new_class);
+            thins[i-pieces.length].classList.add(new_class);
         } else { //32 branches
             boom_sheet.insertRule("." + new_class + explodeStyle(branches[i-220]), i);
             
-            branches[i-220].classList.add(new_class);
+            branches[i-(pieces.length + thins.length)].classList.add(new_class);
         }
         
     }
@@ -195,20 +185,12 @@ function getRand(min, max) {
 // ~~~~~~~~~~~~~~~~~~~~~~~
 
 $(document).on( "mouseover", '.piece, .thin, .branch', function() {
+    var c = $(this).attr("class");
+    
     $(this).addClass('burn');
-} )
 
-/*<div class="piece">
-          <div class="burn">
-            <div class="flame"></div>
-            <div class="flame"></div>
-            <div class="flame"></div>
-            <div class="flame"></div>
-            <div class="flame"></div>
-            <div class="flame"></div>
-            <div class="flame"></div>
-            <div class="flame"></div>
-            <div class="flame"></div>
-            <div class="flame"></div>
-          </div>
-        </div>*/
+    //if it has the branch class, then invert it halfway through the animation to turn the box shadow blue
+    if(c[0] == 'b') {
+        setTimeout(() => { $(this).css("filter", "invert(1)"); }, 2500);
+    }
+})

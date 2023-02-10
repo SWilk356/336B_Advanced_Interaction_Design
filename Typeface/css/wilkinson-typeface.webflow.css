@@ -62,11 +62,11 @@
   max-height: 100%;
   max-width: 100%;
   background-color: transparent;
-  background-image: url('../images/mf5m_83oh_120820.jpg');
+  /*background-image: url('../images/scorched.jpg');*/
+  background: linear-gradient(50deg, #000000 20%, #392600 40%, #461901 60%, #6d2a00e3 80%);
   background-position: 0px 0px;
   background-size: contain;
   background-repeat: repeat;
-  filter: brightness(70%)
 }
 
 .letter {
@@ -93,7 +93,8 @@
   width:100%;
   max-height: 50%;
   max-width: 100%;
-  background-image: url('../images/mf5m_83oh_120820.jpg');
+ /* background-image: url('../images/scorched.jpg');*/
+  background: linear-gradient(0deg, #100401dd 20%, #392600 40%, 56% #461901ce #361402d7 60%, #452612e3 80%);
   background-position: 0px 0px;
   background-size: contain;
   background-repeat: repeat;
@@ -108,14 +109,10 @@
   display: block;
   width: 100%;
   height: 100%;
-  background-image: url('../images/branch_black.png');
+  background-image: url('../images/jewel.jpg');
   background-position: 0px 0px;
   background-size: contain;
   background-repeat: no-repeat;
-}
-
-.branch.flip {
-  background-image: url('../images/branch_black_flip.png');
 }
 
 .body {

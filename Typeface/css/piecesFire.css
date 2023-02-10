@@ -2,14 +2,14 @@
 
 .burn {
   position: absolute;
-  height: 0px;
-  width: 0px;
+  height: 100%;
+  width: 100%;
   background-color: #161617;
   border-radius: 0%;
   top: 0%;
-  right: 0%;
-  animation: 5s burn-grow linear infinite;
-  border: 3px solid #161617;
+  left: 0%;
+  animation: 5s burn-grow forwards;
+  border: 10px solid #161617;
   -webkit-box-shadow: #161617;
   -moz-box-shadow: #161617;
   box-shadow: #161617;
@@ -18,39 +18,39 @@
 @keyframes burn-grow {
   0% {
     opacity: 1;
-    height: 0px;
-    width: 0%;
-    top: 0%;
-    right: 0%;
-    border: 3px solid #FFFB5C;
-    -webkit-box-shadow: inset 0px 0px 6px 2px #FFFB5C, inset 0px 0px 5px 6px rgba(243, 108, 0,0.5), 0px 0px 6px 2px #FFFB5C, 0px 0px 15px 10px rgba(241, 124, 4, 0.6), 0px 0px 8px 11px #1c0901eb, inset 0px 0px 29px 22px #c4720f42;
-    -moz-box-shadow: inset 0px 0px 6px 2px #FFFB5C, inset 0px 0px 5px 6px rgba(243, 108, 0,0.5), 0px 0px 6px 2px #FFFB5C, 0px 0px 15px 10px rgba(241, 124, 4, 0.6), 0px 0px 8px 11px #1c0901eb, inset 0px 0px 29px 22px #c4720f42;
-    box-shadow: inset 0px 0px 6px 2px #FFFB5C, inset 0px 0px 5px 6px rgba(243, 108, 0,0.5), 0px 0px 6px 2px #FFFB5C, 0px 0px 15px 10px rgba(241, 124, 4, 0.6), 0px 0px 8px 11px #1c0901eb, inset 0px 0px 29px 22px #c4720f42;
-
-  }
-  5% {
+    height: 100%;
     width: 100%;
   }
   50% {
-    height: 50%;
-    width: 100%;
-    border: 3px solid #FFFB5C;
-    -webkit-box-shadow: inset 0px 0px 6px 2px #FFFB5C, inset 0px 0px 5px 6px rgba(243, 108, 0,0.5), 0px 0px 6px 2px #FFFB5C, 0px 0px 15px 10px rgba(241, 124, 4, 0.6), 0px 0px 8px 11px #1c0901eb, inset 0px 0px 29px 22px #c4720f42;
-    -moz-box-shadow: inset 0px 0px 6px 2px #FFFB5C, inset 0px 0px 5px 6px rgba(243, 108, 0,0.5), 0px 0px 6px 2px #FFFB5C, 0px 0px 15px 10px rgba(241, 124, 4, 0.6), 0px 0px 8px 11px #1c0901eb, inset 0px 0px 29px 22px #c4720f42;
-    box-shadow: inset 0px 0px 6px 2px #FFFB5C, inset 0px 0px 5px 6px rgba(243, 108, 0,0.5), 0px 0px 6px 2px #FFFB5C, 0px 0px 15px 10px rgba(241, 124, 4, 0.6), 0px 0px 8px 11px #1c0901eb, inset 0px 0px 29px 22px #c4720f42;
-
+    top:50%;
+    left:50%;
+    height: 0%;
+    width: 0%;
+    border-width: 0px;
   }
-  98% {
-    opacity: 1;
+  85% {
+    top:0%;
+    left:0%;
+    border: 3px solid #ffb35c;
+    -webkit-box-shadow: inset 0px 0px 24px 8px #e8be13, inset 0px 0px 20px 24px rgba(167, 78, 5, 0.5), 0px 0px 24px 8px #facd37, 0px 0px 60px 40px rgba(156, 79, 3, 0.6), 0px 0px 5px 5px #1c0901eb, inset 0px 0px 5px 5px #c4720f42;
+    -moz-box-shadow: inset 0px 0px 24px 8px #e8be13, inset 0px 0px 20px 24px rgba(167, 78, 5, 0.5), 0px 0px 24px 8px #facd37, 0px 0px 60px 40px rgba(156, 79, 3, 0.6), 0px 0px 5px 5px #1c0901eb, inset 0px 0px 5px 5px #c4720f42;
+    box-shadow: inset 0px 0px 24px 8px #e8be13, inset 0px 0px 20px 24px rgba(167, 78, 5, 0.5), 0px 0px 24px 8px #facd37, 0px 0px 60px 40px rgba(156, 79, 3, 0.6), 0px 0px 5px 5px #1c0901eb, inset 0px 0px 5px 5px #c4720f42;
+  }
+  95% {
+    opacity: 50%;
     height: 100%;
     width: 100%;
+    border: 3px solid #FFFB5C;
+    -webkit-box-shadow: inset 0px 0px 24px 8px #FFFB5C, inset 0px 0px 20px 24px rgba(243, 108, 0,0.5), 0px 0px 24px 8px #FFFB5C, 0px 0px 60px 40px rgba(241, 124, 4, 0.6), 0px 0px 16px 22px #1c0901eb, inset 0px 0px 58px 44px #c4720f42;
+    -moz-box-shadow: inset 0px 0px 24px 8px #FFFB5C, inset 0px 0px 20px 24px rgba(243, 108, 0,0.5), 0px 0px 24px 8px #FFFB5C, 0px 0px 60px 40px rgba(241, 124, 4, 0.6), 0px 0px 16px 22px #1c0901eb, inset 0px 0px 58px 44px #c4720f42;
+    box-shadow: inset 0px 0px 24px 8px #FFFB5C, inset 0px 0px 20px 24px rgba(243, 108, 0,0.5), 0px 0px 24px 8px #FFFB5C, 0px 0px 60px 40px rgba(241, 124, 4, 0.6), 0px 0px 16px 22px #1c0901eb, inset 0px 0px 58px 44px #c4720f42;
+  }
+  100% {
+    opacity: 0;
     border: 3px solid #161617;
     -webkit-box-shadow: inset 0px 0px 6px 2px #fffb5c00, inset 0px 0px 8px 3px rgb(52, 21, 0), 0px 0px 6px 2px #3f1c0100, 0px 0px 15px 10px rgba(105, 46, 0, 0), 0px 0px 17px 18px #401d02eb, inset 0px 0px 29px 22px #c4720f00;
     -moz-box-shadow: inset 0px 0px 6px 2px #fffb5c00, inset 0px 0px 8px 3px rgb(52, 21, 0), 0px 0px 6px 2px #3f1c0100, 0px 0px 15px 10px rgba(105, 46, 0, 0), 0px 0px 17px 18px #401d02eb, inset 0px 0px 29px 22px #c4720f00;
     box-shadow: inset 0px 0px 6px 2px #161617, inset 0px 0px 8px 3px #161617, 0px 0px 6px 2px #161617, 0px 0px 15px 10px #161617, 0px 0px 17px 18px #161617, inset 0px 0px 29px 22px #161617;
-  }
-  100% {
-    opacity: 0;
   }
 }
 
@@ -71,9 +71,8 @@
     width: 0px;
     top: 50%;
     right: 50%;
-    box-shadow: 0px 0px 71px 101px #dcaa71;
   }
-  53% {
+  80% {
     box-shadow: 0px 0px 71px 101px #dcaa71;
   }
   98% {
