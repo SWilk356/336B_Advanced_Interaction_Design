@@ -126,47 +126,63 @@ var pieces = document.getElementsByClassName("piece");
 var thins = document.getElementsByClassName("thin");
 var branches = document.getElementsByClassName("branch");
 
+var allComponents = $('.letter').children().children();
+
 
 $(document).on( "click", '.explode', function() {
     var element = document.createElement('style'),
-	boom_sheet;
+	big_boom_sheet;
 
     // Append style element to head
     document.head.appendChild(element);
 
     // Reference to the stylesheet
-    boom_sheet = element.sheet;
+    big_boom_sheet = element.sheet;
 
     //stop the fire from shaking because it is releasing the letters
     fireContainer[0].style.animationPlayState = "paused";
 
-    var new_class = "";
-    var numTotalComponents = pieces.length + thins.length + branches.length;
-    //for all pieces, thins, and branches, add new boom class + transform rules to new stylesheet
-    for(let i = 0; i < numTotalComponents; i++) {
-        new_class = "boom" + i;
-        if (i < pieces.length) { //190 pieces
-            boom_sheet.insertRule("." + new_class + explodeStyle(pieces[i]), i);
+    explodeAnim(big_boom_sheet, "boom", allComponents);
+
+    // var new_class = "";
+    // var numTotalComponents = pieces.length + thins.length + branches.length;
+    // //for all pieces, thins, and branches, add new boom class + transform rules to new stylesheet
+    // for(let i = 0; i < numTotalComponents; i++) {
+    //     new_class = "boom" + i;
+    //     if (i < pieces.length) { //190 pieces
+    //         boom_sheet.insertRule("." + new_class + explodeStyle(pieces[i]), i);
         
-            pieces[i].classList.add(new_class);
-        } else if (i >= pieces.length && i < pieces.length + thins.length) { //30 thins
-            boom_sheet.insertRule("." + new_class + explodeStyle(thins[i-190]), i);
+    //         pieces[i].classList.add(new_class);
+    //     } else if (i >= pieces.length && i < pieces.length + thins.length) { //30 thins
+    //         boom_sheet.insertRule("." + new_class + explodeStyle(thins[i-190]), i);
             
-            thins[i-pieces.length].classList.add(new_class);
-        } else { //32 branches
-            boom_sheet.insertRule("." + new_class + explodeStyle(branches[i-220]), i);
+    //         thins[i-pieces.length].classList.add(new_class);
+    //     } else { //32 branches
+    //         boom_sheet.insertRule("." + new_class + explodeStyle(branches[i-220]), i);
             
-            branches[i-(pieces.length + thins.length)].classList.add(new_class);
-        }
+    //         branches[i-(pieces.length + thins.length)].classList.add(new_class);
+    //     }
         
-    }
+    // }
 
     //end of explosion, reload the page to reset
     setTimeout(() => { location.reload(); }, 3000);
 } )
 
+function explodeAnim(sheet, cname, obj) {
+    var new_class = "";
+    console.log(obj);
+    //for all pieces, thins, and branches, add new boom class + transform rules to new stylesheet
+    for(let i = 0; i < obj.length; i++) {
+        new_class = cname + i;
+        sheet.insertRule("." + new_class + explodeStyle(), i);
+        
+        obj[i].classList.add(new_class);
+    }
+}
+
 //setup explosion css with random values
-function explodeStyle(elem) {
+function explodeStyle() {
     let rand_x = getRand(-1000, 1000);
     let delay = getRand(0,1);
     let scale = getRand(1,5);
@@ -184,7 +200,7 @@ function getRand(min, max) {
 // individual pieces burning animation code
 // ~~~~~~~~~~~~~~~~~~~~~~~
 
-$(document).on( "mouseover", '.piece, .thin, .branch', function() {
+$(document).on( "mouseover", '#full-grid .piece, #full-grid .thin, #full-grid .branch' , function() {
     var c = $(this).attr("class");
     
     $(this).addClass('burn');
@@ -199,17 +215,31 @@ $(document).on( "mouseover", '.piece, .thin, .branch', function() {
 // drag drop code
 // ~~~~~~~~~~~~~~~~~~~~~~~
 
+var elm = document.createElement('style'),
+indiv_boom_sheet;
+
+// Append style element to head
+document.head.appendChild(elm);
+
+// Reference to the stylesheet
+indiv_boom_sheet = elm.sheet;
+
 function allowDrop(ev) {
     ev.preventDefault();
-  }
-  
-  function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-  }
+}
 
-  function drop(ev) {
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
-    document.getElementById(data).style.zIndex = +1;
-    ev.target.appendChild(document.getElementById(data));
-  }
+    var el = document.getElementById(data);
+    var children = $("#" + data).children().children();
+    explodeAnim(indiv_boom_sheet, "indiv-boom", children);
+    indiv_boom_sheet.insertRule("#" + data, "{top: " + getY(el) + "; left: " + getX(el) + ";}", children.length);
+    //maybe instead of appending child just move it by the distance without the transition
+    console.log(indiv_boom_sheet);
+    //ev.target.appendChild(document.getElementById(data));
+}

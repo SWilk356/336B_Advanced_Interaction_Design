@@ -67,6 +67,7 @@
   background-position: 0px 0px;
   background-size: contain;
   background-repeat: repeat;
+  border-radius: 50%;
 }
 
 .letter {
@@ -98,6 +99,7 @@
   background-position: 0px 0px;
   background-size: contain;
   background-repeat: repeat;
+  border-radius: 50%;
 }
 
 .filler {
