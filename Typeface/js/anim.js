@@ -167,11 +167,11 @@ $(document).on( "click", '.explode', function() {
 
 //setup explosion css with random values
 function explodeStyle(elem) {
-    var new_style = "";
     let rand_x = getRand(-1000, 1000);
     let delay = getRand(0,1);
+    let scale = getRand(1,5);
 
-    return "{transition-delay: " + delay + "s;" + "transform: translate(" + rand_x + "px,-1000px) rotate(720deg);}";
+    return "{transition-delay: " + delay + "s;" + "transform: translate(" + rand_x + "px,-1000px) rotate(720deg) scale(" + scale + ");}";
 }
 
 //helper to explodeStyle
@@ -194,3 +194,22 @@ $(document).on( "mouseover", '.piece, .thin, .branch', function() {
         setTimeout(() => { $(this).css("filter", "invert(1)"); }, 2500);
     }
 })
+
+// ~~~~~~~~~~~~~~~~~~~~~~~
+// drag drop code
+// ~~~~~~~~~~~~~~~~~~~~~~~
+
+function allowDrop(ev) {
+    ev.preventDefault();
+  }
+  
+  function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+  }
+
+  function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    document.getElementById(data).style.zIndex = +1;
+    ev.target.appendChild(document.getElementById(data));
+  }

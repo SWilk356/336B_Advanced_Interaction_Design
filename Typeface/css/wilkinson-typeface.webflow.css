@@ -81,7 +81,7 @@
   grid-template-rows: 5vh 5vh 5vh 5vh;
 }
 
-.letter.a {
+#A {
   margin-right: auto;
   margin-left: auto;
 }
@@ -94,7 +94,7 @@
   max-height: 50%;
   max-width: 100%;
  /* background-image: url('../images/scorched.jpg');*/
-  background: linear-gradient(0deg, #100401dd 20%, #392600 40%, 56% #461901ce #361402d7 60%, #452612e3 80%);
+  background: linear-gradient(50deg, #000000 20%, #392600 40%, #461901 60%, #6d2a00e3 80%);
   background-position: 0px 0px;
   background-size: contain;
   background-repeat: repeat;
