@@ -21,14 +21,14 @@
     height: 100%;
     width: 100%;
   }
-  50% {
+  25% {
     top:50%;
     left:50%;
     height: 0%;
     width: 0%;
     border-width: 0px;
   }
-  85% {
+  55% {
     top:0%;
     left:0%;
     border: 3px solid #ffb35c;
@@ -36,7 +36,7 @@
     -moz-box-shadow: inset 0px 0px 24px 8px #c5a214, inset 0px 0px 20px 24px rgba(109, 50, 2, 0.5), 0px 0px 24px 8px #c49806, 0px 0px 60px 40px rgba(156, 39, 3, 0.6), 0px 0px 5px 5px #1c0901eb, inset 0px 0px 5px 5px #c4720f42;
     box-shadow: inset 0px 0px 24px 8px #c5a214, inset 0px 0px 20px 24px rgba(109, 50, 2, 0.5), 0px 0px 24px 8px #c49806, 0px 0px 60px 40px rgba(156, 39, 3, 0.6), 0px 0px 5px 5px #1c0901eb, inset 0px 0px 5px 5px #c4720f42;
   }
-  88% {
+  58% {
     opacity: 50%;
     height: 100%;
     width: 100%;
@@ -45,7 +45,7 @@
     -moz-box-shadow: inset 0px 0px 24px 8px #FFFB5C, inset 0px 0px 20px 24px rgba(243, 108, 0,0.5), 0px 0px 24px 8px #FFFB5C, 0px 0px 60px 40px rgba(241, 124, 4, 0.6), 0px 0px 16px 22px #1c0901eb, inset 0px 0px 58px 44px #c4720f42;
     box-shadow: inset 0px 0px 24px 8px #FFFB5C, inset 0px 0px 20px 24px rgba(243, 108, 0,0.5), 0px 0px 24px 8px #FFFB5C, 0px 0px 60px 40px rgba(241, 124, 4, 0.6), 0px 0px 16px 22px #1c0901eb, inset 0px 0px 58px 44px #c4720f42;
   }
-  90% {
+  60% {
     height:0%;
     width:0%;
     border: 3px solid #161617;
@@ -53,8 +53,14 @@
     -moz-box-shadow: inset 0px 0px 6px 2px #fffb5c00, inset 0px 0px 8px 3px rgb(52, 21, 0), 0px 0px 6px 2px #3f1c0100, 0px 0px 15px 10px rgba(105, 46, 0, 0), 0px 0px 17px 18px #401d02eb, inset 0px 0px 29px 22px #c4720f00;
     box-shadow: inset 0px 0px 6px 2px #161617, inset 0px 0px 8px 3px #161617, 0px 0px 6px 2px #161617, 0px 0px 15px 10px #161617, 0px 0px 17px 18px #161617, inset 0px 0px 29px 22px #161617;
   }
-  100% {
+  70% {
     opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    border: none;
+    height: 100%;
+    width: 100%;
   }
 }
 
