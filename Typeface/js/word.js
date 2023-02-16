@@ -24,12 +24,12 @@ $(document).on( "click", '#incendo-grid .letter' , function() {
     
 
     let id = $(this).attr('id');
-    let lefthand = 0;
-    let righthand = 0;
+    let lefthand, righthand;
     if(thisCol == "col-1") {
-        //21 columns in total
         lefthand = 2;
+        righthand = 0;
     } else if (thisCol == "col-2") {
+        lefthand = 0;
         righthand = 1;
     } else {
         lefthand = 1;

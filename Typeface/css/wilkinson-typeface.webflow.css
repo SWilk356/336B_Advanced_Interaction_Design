@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,200&display=swap');
+
 .w-layout-grid {
   display: -ms-grid;
   display: grid;
@@ -22,6 +24,11 @@
   grid-template-columns: 33% 33% 33%;
   -ms-grid-rows: 20% 20% 20% 20% 20%;
   grid-template-rows: 20% 20% 20% 20% 20%;
+}
+
+.big-container {
+  display:flex;
+  flex-direction: column;
 }
 
 .container {
@@ -187,38 +194,67 @@
   filter: blur(1px);
   mix-blend-mode: normal;
 }
-/*
-.burn {
-  display: block;
-  width: 3vw;
-  height: 5vh;
-  margin-top: -5vh;
-  grid-auto-columns: 1fr;
-  grid-column-gap: 16px;
-  grid-row-gap: 16px;
-  -ms-grid-columns: 1fr 1fr;
-  grid-template-columns: 1fr 1fr;
-  -ms-grid-rows: auto auto;
-  grid-template-rows: auto auto;
-  background-image: url('../images/fire.png');
-  background-position: 0px 0px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  -webkit-transition: z-Index 0ms ease;
-  transition: z-Index 0ms ease;
+
+.page-link {
+  text-align: center;
+  padding-top: 0.5vw;
+  margin-top: 2vh;
+  margin-left: 2vw;
+  font-family: 'Roboto Mono', monospace;
+  font-size: large;
+  background-color: chocolate;
+  border-radius: 10%;
+  width: 10%;
+  height: 2.5vw;
 }
-*/
+
+@media screen and (max-width: 1050px) {
+  .container {
+    padding-left: 16vw;
+  }
+
+  .page-link {
+    margin-left: 20vw;
+  }
+}
+
 @media screen and (max-width: 991px) {
   .container {
     padding-left: 19vw;
+  }
+  .page-link {
+    width: 20%;
   }
 }
 
 @media screen and (max-width: 767px) {
   .container {
-    padding-left: 40vw;
+    padding-left: 25vw;
     -ms-grid-columns: auto auto auto auto auto auto auto auto;
     grid-template-columns: auto auto auto auto auto auto auto auto;
+  }
+  
+  .fire {
+    margin-left: 50%;
+  }
+
+  .page-link {
+    height: 3vh;
+  }
+}
+
+
+@media screen and (max-width: 750px) {
+  .page-link {
+    margin-left: 35vw;
+    width: 15%;
+    height: 3vh;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .container {
+    padding-left: 40vw;
   }
 }
 
@@ -234,6 +270,20 @@
 
   .div-block-3 {
     width: 3vw;
+  }
+
+  .page-link {
+    margin-left: 20vw;
+    width: 30%;
+    height:2vh;
+  }
+
+  body {
+    overflow: scroll;
+  }
+
+  .fire {
+    display: none;
   }
 }
 

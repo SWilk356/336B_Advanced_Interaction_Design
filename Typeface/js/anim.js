@@ -207,7 +207,7 @@ $(document).on( "mouseover", '#full-grid .piece, #full-grid .thin, #full-grid .b
 
     //if it has the branch class, then invert it halfway through the animation to turn the box shadow blue
     if(c[0] == 'b') {
-        setTimeout(() => { $(this).css("filter", "invert(1)"); }, 2500);
+        setTimeout(() => { $(this).css("filter", "invert(1)"); }, 1500);
         setTimeout(() => { $(this).css("filter", "invert(0)"); }, 3000);
     }
 
