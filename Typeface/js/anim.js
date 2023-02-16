@@ -33,6 +33,10 @@ $(document).on( "click", '.explode', function() {
     //add to new css sheet
     move_sheet.insertRule(setShakeAnim, 0);
     move_sheet.insertRule(createShakeAnim, 1);
+
+    setTimeout(() => { 
+        document.head.removeChild(element);
+    }, 1000);
 } )
 
 // ~~~~~~~~~~~~~~~~~~~~~~~
@@ -60,9 +64,6 @@ $(document).on( "click", '.explode', function() {
     big_boom_sheet = element.sheet;
 
     if(top_of_page) {
-        window.scrollTo(0, 10);
-        window.scrollTo(0, 0);
-        window.scrollTo(0, 10);
 
         setTimeout(() => { 
             explodeAnim(big_boom_sheet, "boom", incendoComponents);
@@ -76,7 +77,6 @@ $(document).on( "click", '.explode', function() {
             top_of_page = false;
         }, 4000);
     } else {
-        window.scrollTo(0, 740);
         setTimeout(() => { 
             explodeAnim(big_boom_sheet, "boom", allComponents);
             smoothScroll(-750);
