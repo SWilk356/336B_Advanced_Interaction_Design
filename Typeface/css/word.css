@@ -1,7 +1,20 @@
 #incendo-grid {
   margin-top: 15vh;
+  margin-bottom: 15vh;
   grid-row-gap: 50px;
   grid-column-gap: 50px;
+}
+
+#incendo-grid .letter {
+  top:0px;
+  left:0px;
+  grid-auto-flow: row;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  -ms-grid-columns: 3.5vw 3.5vw 3.5vw;
+  grid-template-columns: 3.5vw 3.5vw 3.5vw;
+  -ms-grid-rows: 12vh 12vh 12vh 12vh;
+  grid-template-rows: 12vh 12vh 12vh 12vh;
 }
 
 @media screen and (max-width: 991px) {
@@ -34,4 +47,8 @@
     -ms-grid-columns: 80% 80% 80%;
     grid-template-columns: 80% 80% 80%;
   }
+}
+
+.move-to-spec {
+  bottom: 3vh;
 }

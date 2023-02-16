@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,200&display=swap');
-
 .w-layout-grid {
   display: -ms-grid;
   display: grid;
@@ -27,6 +25,7 @@
 }
 
 .big-container {
+  padding-top: 5vw;
   display:flex;
   flex-direction: column;
 }
@@ -34,9 +33,8 @@
 .container {
   display: -ms-grid;
   display: grid;
-  margin-top: 20px;
   padding-right: 0px;
-  padding-left: 5vw;
+  padding-left: -2vw;
   -webkit-box-pack: stretch;
   -webkit-justify-content: stretch;
   -ms-flex-pack: stretch;
@@ -46,19 +44,45 @@
   -ms-flex-line-pack: stretch;
   align-content: stretch;
   grid-auto-columns: 1fr;
-  grid-column-gap: 16px;
-  grid-row-gap: 16px;
+  grid-column-gap: 20px;
+  grid-row-gap: 30px;
   -ms-grid-columns: auto auto auto auto auto auto auto auto auto;
   grid-template-columns: auto auto auto auto auto auto auto auto auto;
   -ms-grid-rows: auto auto auto;
   grid-template-rows: auto auto auto;
 }
 
-.div-block {
-  border-radius: 20px;
-  background-image: url('../images/7b314ccbba528a0fc578be5f815b518a.jpg');
-  background-position: 0px 0px;
-  background-size: auto;
+#full-grid {
+  margin-top: 5vh;
+  margin-bottom: 20vh;
+}
+
+.letter {
+  -webkit-transition:all 1.0s ease-in-out;
+    -moz-transition:all 1.0s ease-in-out;
+    -o-transition:all 1.0s ease-in-out;
+    -ms-transition:all 1.0s ease-in-out;    
+    transition:all 1.0s ease-in-out;
+}
+
+.piece, .thin, .branch {
+  -webkit-transition:all 1.0s linear;
+  -moz-transition:all 1.0s linear;
+  -o-transition:all 1.0s linear;
+  -ms-transition:all 1.0s linear;    
+  transition:all 1.0s linear;
+}
+
+#full-grid .letter {
+  top:0px;
+  left:0px;
+  grid-auto-flow: row;
+  grid-column-gap: 1px;
+  grid-row-gap: 1px;
+  -ms-grid-columns: 3vw 3vw 3vw;
+  grid-template-columns: 3vw 3vw 3vw;
+  -ms-grid-rows: 6vh 6vh 6vh 6vh;
+  grid-template-rows: 6vh 6vh 6vh 6vh;
 }
 
 .piece {
@@ -70,24 +94,16 @@
   max-width: 100%;
   background-color: transparent;
   /*background-image: url('../images/scorched.jpg');*/
-  background: linear-gradient(50deg, #000000 20%, #392600 40%, #461901 60%, #6d2a00e3 80%);
+  background: rgb(50, 30, 1);/*linear-gradient(50deg, #fcd124 60%, #f48404e3 80%);*/
   background-position: 0px 0px;
   background-size: contain;
   background-repeat: repeat;
-  border-radius: 50%;
+  border-style: solid;
+  border-color:rgb(0, 0, 0);
+  border-width: 2px;
+  border-radius: 40%;
 }
 
-.letter {
-  top:0px;
-  left:0px;
-  grid-auto-flow: row;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  -ms-grid-columns: 3vw 3vw 3vw;
-  grid-template-columns: 3vw 3vw 3vw;
-  -ms-grid-rows: 5vh 5vh 5vh 5vh;
-  grid-template-rows: 5vh 5vh 5vh 5vh;
-}
 
 #A {
   margin-right: auto;
@@ -102,11 +118,14 @@
   max-height: 50%;
   max-width: 100%;
  /* background-image: url('../images/scorched.jpg');*/
-  background: linear-gradient(50deg, #000000 20%, #392600 40%, #461901 60%, #6d2a00e3 80%);
+  background: rgb(50, 30, 1); /*linear-gradient(50deg, #000000 20%, #392600 40%, #461901 60%, #6d2a00e3 80%);*/
   background-position: 0px 0px;
   background-size: contain;
   background-repeat: repeat;
-  border-radius: 50%;
+  border-style: solid;
+  border-color:rgb(0, 0, 0);
+  border-width: 2px;
+  border-radius: 30%;
 }
 
 .filler {
@@ -122,6 +141,7 @@
   background-position: 0px 0px;
   background-size: contain;
   background-repeat: no-repeat;
+  border-radius: 40%;
 }
 
 .body {
@@ -147,35 +167,15 @@
   grid-template-columns: 1fr;
   -ms-grid-rows: auto auto;
   grid-template-rows: auto auto;
-  background-color: #161617;
-  /*background-image: url('../images/sky.jpg');*/
+  /*background-color: #161617;
+  background-image: url('../images/sky.jpg');*/
   background-position: 0px 0px;
   background-size: auto;
   text-align: left;
   height: 100%;
   overflow: hidden;
-}
 
-.log {
-  width: 10vw;
-  height: 3vh;
-  max-height: 6vh;
-  max-width: 30vw;
-  margin-bottom: 5vh;
-  margin-left: 30vw;
-  background-image: url('../images/7b314ccbba528a0fc578be5f815b518a.jpg');
-  background-position: 50% 50%;
-  background-size: contain;
-  -webkit-transform: rotate(20deg);
-  -ms-transform: rotate(20deg);
-  transform: rotate(20deg);
-}
-
-.log.second_log {
-  margin-bottom: -3vh;
-  -webkit-transform: rotate(-14deg);
-  -ms-transform: rotate(-14deg);
-  transform: rotate(-14deg);
+  background-color:#161617;
 }
 
 .fire {
@@ -198,12 +198,8 @@
 .page-link {
   text-align: center;
   padding-top: 0.5vw;
-  margin-top: 2vh;
+  margin-top: -8vh;
   margin-left: 2vw;
-  font-family: 'Roboto Mono', monospace;
-  font-size: large;
-  background-color: chocolate;
-  border-radius: 10%;
   width: 10%;
   height: 2.5vw;
 }
