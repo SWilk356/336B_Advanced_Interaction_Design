@@ -20,9 +20,6 @@ $(document).on( "click", '#incendo-grid .col-1, #incendo-grid .col-2, #incendo-g
 })
 
 $(document).on( "click", '#incendo-grid .letter' , function() {
-    let cols = $(this).children();
-    
-
     let id = $(this).attr('id');
     let lefthand, righthand;
     if(thisCol == "col-1") {
@@ -43,7 +40,6 @@ $(document).on( "click", '#incendo-grid .letter' , function() {
         //move lefthand down the columns
         var startingCol = (i == 0) ? lefthand : 2;
         for(let h = startingCol; h > -1; h--) {
-            console.log("left");
             d1++;
             burnColumn(i.toString(), colnames[h], d1);
         }
@@ -56,7 +52,6 @@ $(document).on( "click", '#incendo-grid .letter' , function() {
         var startingCol = (f == 0) ? righthand : 0;
         //move righthand up the columns
         for(let g = startingCol; g < 3; g++) {
-            console.log("right");
             d2++;
             burnColumn(f.toString(), colnames[g], d2);
         }

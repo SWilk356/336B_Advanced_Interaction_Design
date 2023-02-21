@@ -55,6 +55,7 @@
 #full-grid {
   margin-top: 5vh;
   margin-bottom: 20vh;
+  margin-left: 6vw;
 }
 
 .letter {
@@ -93,8 +94,7 @@
   max-height: 100%;
   max-width: 100%;
   background-color: transparent;
-  background-image: url('../images/charcoal.jpg');
-  /*background: rgb(50, 30, 1);/*linear-gradient(50deg, #fcd124 60%, #f48404e3 80%);*/
+  background-image: url('../images/scorched.jpg');
   background-position: 0px 0px;
   background-size: cover;
   background-repeat: repeat;
@@ -117,8 +117,7 @@
   width:100%;
   max-height: 50%;
   max-width: 100%;
-  background-image: url('../images/charcoal.jpg');
-  background: rgb(50, 30, 1); /*linear-gradient(50deg, #000000 20%, #392600 40%, #461901 60%, #6d2a00e3 80%);*/
+  background-image: url('../images/scorched.jpg');
   background-position: 0px 0px;
   background-size: cover;
   background-repeat: repeat;
@@ -126,6 +125,7 @@
   border-color:rgb(0, 0, 0);
   border-width: 2px;
   border-radius: 30%;
+  filter:brightness(100%);
 }
 
 .filler {
@@ -141,6 +141,10 @@
   background-position: 0px 0px;
   background-size: contain;
   background-repeat: no-repeat;
+  border-radius: 40%;
+}
+
+.col-1, .col-2, .col-3 {
   border-radius: 40%;
 }
 
@@ -167,41 +171,31 @@
   grid-template-columns: 1fr;
   -ms-grid-rows: auto auto;
   grid-template-rows: auto auto;
-  /*background-color: #161617;
-  background-image: url('../images/sky.jpg');*/
   background-position: 0px 0px;
   background-size: auto;
   text-align: left;
   height: 100%;
   overflow: hidden;
-
   background-color:#161617;
-}
-
-.fire {
-  margin-top: -40vh;
-  z-index: 0s;
-}
-
-.bonfire {
-  width: 10vw;
-  height: 20vh;
-  background-image: url('../images/bonfire.png');
-  background-position: 50% 50%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  -webkit-filter: blur(1px);
-  filter: blur(1px);
-  mix-blend-mode: normal;
 }
 
 .page-link {
   text-align: center;
   padding-top: 0.5vw;
-  margin-top: -8vh;
-  margin-left: 2vw;
   width: 10%;
   height: 2.5vw;
+}
+
+.page-link.down {
+  padding-top: 0.5vw;
+  margin-top: -20vh;
+  margin-left: 5vw;
+}
+
+.page-link.up {
+  transform: rotate(180deg);
+  margin-top: 25vh;
+  margin-bottom: -15vh;
 }
 
 @media screen and (max-width: 1050px) {

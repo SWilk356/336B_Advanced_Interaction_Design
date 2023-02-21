@@ -1,5 +1,3 @@
-let top_of_page = true;
-
 // ~~~~~~~~~~~~~~~~~~~~~~~
 // move letters to fire and shake animation code
 // ~~~~~~~~~~~~~~~~~~~~~~~
@@ -63,38 +61,37 @@ $(document).on( "click", '.explode', function() {
     // Reference to the stylesheet
     big_boom_sheet = element.sheet;
 
-    if(top_of_page) {
+    if(window.scrollY == 0) {
 
         setTimeout(() => { 
             explodeAnim(big_boom_sheet, "boom", incendoComponents);
             smoothScroll(750);
-            $('.arrow').css("transform", "rotate(180deg)");
-            $('.arrow').css("top", "3vh");
-            $('.arrow').css("right", "7vw");
-        }, 1000);
+        }, 500);
         setTimeout(() => { 
             removeBoomClass(incendoComponents);
-            top_of_page = false;
-        }, 4000);
+        }, 3500);
     } else {
         setTimeout(() => { 
             explodeAnim(big_boom_sheet, "boom", allComponents);
             smoothScroll(-750);
-            $('.arrow').css("transform", "rotate(0deg)");
-            $('.arrow').css("top", "-3vh");
-            $('.arrow').css("right", "-7vw");
-        }, 1000);
+        }, 500);
         setTimeout(() => { 
             removeBoomClass(allComponents);
-            top_of_page = true;
-        }, 4000);
+        }, 3500);
     }
 
 } )
 
+function getOffset(el) {
+    const rect = el.getBoundingClientRect();
+    return {
+      left: rect.left + window.scrollX,
+      top: rect.top + window.scrollY
+    };
+  }
+
 function explodeAnim(sheet, cname, obj) {
     var new_class = "";
-    console.log(obj);
     //for all pieces, thins, and branches, add new boom class + transform rules to new stylesheet
     for(let i = 0; i < obj.length; i++) {
         new_class = cname + i;
@@ -109,7 +106,7 @@ function explodeStyle() {
     let rand_x = getRand(-1000, 1000);
     let delay = getRand(0,1);
     let scale = getRand(1,5);
-    let up_down = (top_of_page) ? 5000 : -5000;
+    let up_down = (window.scrollY == 0) ? 5000 : -5000;
 
     return "{transition-delay: " + delay + "s;" + "transform: translate(" + rand_x + "px," + up_down + "px) rotate(720deg) scale(" + scale + ");}";
 }
@@ -156,4 +153,22 @@ $(document).on( "mouseover", '#full-grid .piece, #full-grid .thin, #full-grid .b
     }
 
     setTimeout(() => { $(this).removeClass('burn'); }, 5000);
+})
+
+$(document).on( "mouseover", '.piece, .thin, .branch, .burn' , function() {
+    $(this).css("border-style", "solid");
+    $(this).css("border-color", "white");
+})
+
+$(document).on( "mouseout", '.piece, .thin, .branch, .burn' , function() {
+    $(this).css("border-color", "black");
+})
+
+$(document).on( 'mouseover', '.col-1, .col-2, .col-3', function () {
+    $(this).css('border-style', 'solid');
+    $(this).css('border-color', 'white');
+})
+
+$(document).on( 'mouseout', '.col-1, .col-2, .col-3', function () {
+    $(this).css('border-style', 'none');
 })
