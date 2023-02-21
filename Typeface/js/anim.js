@@ -157,36 +157,3 @@ $(document).on( "mouseover", '#full-grid .piece, #full-grid .thin, #full-grid .b
 
     setTimeout(() => { $(this).removeClass('burn'); }, 5000);
 })
-
-// ~~~~~~~~~~~~~~~~~~~~~~~
-// drag drop code
-// ~~~~~~~~~~~~~~~~~~~~~~~
-
-var elm = document.createElement('style'),
-indiv_boom_sheet;
-
-// Append style element to head
-document.head.appendChild(elm);
-
-// Reference to the stylesheet
-indiv_boom_sheet = elm.sheet;
-
-function allowDrop(ev) {
-    ev.preventDefault();
-}
-
-function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-}
-
-function drop(ev) {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    var el = document.getElementById(data);
-    var children = $("#" + data).children().children();
-    explodeAnim(indiv_boom_sheet, "indiv-boom", children);
-    indiv_boom_sheet.insertRule("#" + data, "{top: " + getY(el) + "; left: " + getX(el) + ";}", children.length);
-    //maybe instead of appending child just move it by the distance without the transition
-    console.log(indiv_boom_sheet);
-    //ev.target.appendChild(document.getElementById(data));
-}
