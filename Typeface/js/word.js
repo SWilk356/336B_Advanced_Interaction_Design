@@ -1,3 +1,12 @@
+$(document).on( 'mouseover', '.col-1, .col-2, .col-3', function () {
+    $(this).css('border-style', 'solid');
+    $(this).css('border-color', 'white');
+})
+
+$(document).on( 'mouseout', '.col-1, .col-2, .col-3', function () {
+    $(this).css('border-style', 'none');
+})
+
 // ~~~~~~~~~~~~~~~~~~~~~~~
 // fire spreading code
 // ~~~~~~~~~~~~~~~~~~~~~~~

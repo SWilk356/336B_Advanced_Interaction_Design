@@ -1,3 +1,23 @@
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(89, 89, 89);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(51, 51, 51);
+}
+
 .w-layout-grid {
   display: -ms-grid;
   display: grid;
@@ -54,16 +74,8 @@
 
 #full-grid {
   margin-top: 5vh;
-  margin-bottom: 20vh;
+  margin-bottom: 10vh;
   margin-left: 6vw;
-}
-
-.letter {
-  -webkit-transition:all 1.0s ease-in-out;
-    -moz-transition:all 1.0s ease-in-out;
-    -o-transition:all 1.0s ease-in-out;
-    -ms-transition:all 1.0s ease-in-out;    
-    transition:all 1.0s ease-in-out;
 }
 
 .piece, .thin, .branch {
@@ -72,6 +84,10 @@
   -o-transition:all 1.0s linear;
   -ms-transition:all 1.0s linear;    
   transition:all 1.0s linear;
+}
+
+#incendo-grid .piece, #incendo-grid .thin, #incendo-grid .branch {
+  cursor:pointer;
 }
 
 #full-grid .letter {
@@ -102,12 +118,6 @@
   border-color:rgb(0, 0, 0);
   border-width: 2px;
   border-radius: 40%;
-}
-
-
-#A {
-  margin-right: auto;
-  margin-left: auto;
 }
 
 .thin {
@@ -175,7 +185,7 @@
   background-size: auto;
   text-align: left;
   height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
   background-color:#161617;
 }
 
@@ -203,8 +213,8 @@
     padding-left: 16vw;
   }
 
-  .page-link {
-    margin-left: 20vw;
+  .page-link.down {
+    margin-left: 15vw;
   }
 }
 
