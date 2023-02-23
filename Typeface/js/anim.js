@@ -6,7 +6,7 @@ var incendoComponents = $('#incendo-grid .letter').children().children();
 var allComponents = $('#full-grid .letter').children().children();
 
 //when click on arrow, animate pieces and scroll page
-$(document).on( "click", '.page-link', function() {
+$(document).on( "click", '.icon', function() {
     var element = document.createElement('style'),
 	big_boom_sheet;
 
@@ -87,7 +87,7 @@ document.addEventListener('scroll', function (){
     console.log(window.scrollY);
     if(window.scrollY < 600 && !top_of_page) {
         removeBoomClass(incendoComponents);
-        explodeAnim(big_boom_sheet, "boom", incendoComponents);
+        //explodeAnim(big_boom_sheet, "boom", incendoComponents);
     }
 
     // if(window.scrollY >= 600 && top_of_page){
@@ -121,7 +121,7 @@ $(document).on( "mouseover", '#full-grid .piece, #full-grid .thin, #full-grid .b
 
 $(document).on( "mouseover", '.piece, .thin, .branch' , function() {
     $(this).css("border-style", "solid");
-    $(this).css("border-color", "white");
+    $(this).css("border-color", "rgb(255, 164, 125)");
 })
 
 $(document).on( "mouseout", '.piece, .thin' , function() {
@@ -136,31 +136,16 @@ $(document).on( "mouseout", '.branch' , function() {
 // arrow animation code
 // ~~~~~~~~~~~~~~~~~~~~~~~
 
-$(document).on( "mouseover", '.page-link', function() {
-    //set fire animation to running
-    setArrowAnimation(0);
-    //setFireAnimation("running");
-} )
+const $icon = document.querySelector('.icon');
+const $arrow = document.querySelector('.arrow');
 
-$(document).on( "mouseout", '.page-link', function() {
-    //set fire animation to pause
-    setArrowAnimation(1);
-    //setFireAnimation("paused");
-} )
-
-function setArrowAnimation(pause) {
-    if(pause) {
-        $('.arrow').css("animation-play-state", "paused");
-    } else {
-        $('.arrow').css("animation-play-state", "running");
-    }
+$icon.onclick = () => {
+  $arrow.animate([
+    {bottom: '0'},
+    {bottom: '10px'},
+    {bottom: '0'}
+  ],{
+    duration: 700,
+    iterations: 3
+  });
 }
-// function setArrowAnimation(state) {
-//     littleFire[0].style.animationPlayState = state;
-//     bigFire[0].style.animationPlayState = state;
-
-//     sparks[0].style.animationPlayState = state;
-//     sparks[1].style.animationPlayState = state;
-//     sparks[2].style.animationPlayState = state;
-//     sparks[3].style.animationPlayState = state;
-// }

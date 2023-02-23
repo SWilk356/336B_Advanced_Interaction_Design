@@ -1,39 +1,42 @@
-.arrow {
-  position: relative;
-  transform: rotate(0deg);
-  top:3vh;
+.icon {
+  transform: translate(-50%,-50%);
+  width: 80px;
+  height: 60px;
   cursor: pointer;
 }
 
-.arrow span {
-  display: block;
-  width: 1.5vw;
-  height: 1.5vw;
-  border-bottom: 5px solid white;
-  border-right: 5px solid white;
-  transform: rotate(0deg);
-  margin: -10px;
-  animation: animate 2s infinite;
+.arrow {
+  position: relative;
+  left: 10vw;
+  width: 90%;
+  height: 10px;
+  background-color: rgb(115, 115, 115);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
+  transform: rotate(90deg);
+  animation: arrow 700ms linear infinite;
 }
 
-.arrow span:nth-child(2) {
-  animation-delay: -0.2s;
+.arrow::after, .arrow::before {
+  content: '';
+  margin-bottom: 3vh;
+  position: absolute;
+  width: 60%;
+  height: 10px;
+  right: -8px;
+  background-color: rgb(115, 115, 115);
 }
 
-.arrow span:nth-child(3) {
-  animation-delay: -0.4s;
+.arrow::after {
+  top: -12px;
+  transform: rotate(45deg);
 }
 
-@keyframes animate {
-  0% {
-      opacity: 0;
-      transform: rotate(45deg) translate(-20px, -20px);
-  }
-  50% {
-      opacity: 1;
-  }
-  100% {
-      opacity: 0;
-      transform: rotate(45deg) translate(20px, 20px);
-  }
+.arrow::before {
+  top: 12px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
+  transform: rotate(-45deg);
+}
+
+.arrow:hover {
+  background-color: rgb(255, 255, 255);
 }
