@@ -121,7 +121,7 @@ $(document).on( "mouseover", '#full-grid .piece, #full-grid .thin, #full-grid .b
 
 $(document).on( "mouseover", '.piece, .thin, .branch' , function() {
     $(this).css("border-style", "solid");
-    $(this).css("border-color", "rgb(255, 164, 125)");
+    $(this).css("border-color", "rgb(255, 255,255)");
 })
 
 $(document).on( "mouseout", '.piece, .thin' , function() {

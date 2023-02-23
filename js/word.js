@@ -1,6 +1,6 @@
 $(document).on( 'mouseover', '.col-1, .col-2, .col-3', function () {
     $(this).css('border-style', 'solid');
-    $(this).css('border-color', 'rgb(255, 164, 125)');
+    $(this).css('border-color', 'rgb(255, 255, 255)');
 })
 
 $(document).on( 'mouseout', '.col-1, .col-2, .col-3', function () {
