@@ -40,12 +40,7 @@
 
 @media screen and (max-width: 485px) {
   #incendo-grid {
-    margin-top: 2vh;
-    padding-left: 12vw;
-    grid-row-gap: 5px;
-    grid-column-gap: 0px;
-    -ms-grid-columns: 80% 80% 80%;
-    grid-template-columns: 80% 80% 80%;
+    display: none;
   }
 }
 

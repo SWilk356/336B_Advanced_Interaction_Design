@@ -105,7 +105,7 @@ document.addEventListener('scroll', function (){
 // individual pieces burning animation code
 // ~~~~~~~~~~~~~~~~~~~~~~~
 
-$(document).on( "mouseover", '#full-grid .piece, #full-grid .thin, #full-grid .branch' , function() {
+$(document).on( "mouseover", '#full-grid .piece, #dense-grid .piece, #full-grid .thin, #dense-grid .thin, #full-grid .branch, #dense-grid .branch' , function() {
     var c = $(this).attr("class");
     
     $(this).addClass('burn');
