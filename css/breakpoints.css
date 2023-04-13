@@ -9,6 +9,7 @@ body {
   display: grid;
   padding-right: 0px;
   padding-left: -2vw;
+  margin-left: 42vw;
   -webkit-box-pack: stretch;
   -webkit-justify-content: stretch;
   -ms-flex-pack: stretch;
@@ -20,8 +21,8 @@ body {
   grid-auto-columns: 3vw;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
-  -ms-grid-columns: 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw ;
-  grid-template-columns: 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw ;
-  -ms-grid-rows: 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw ;
-  grid-template-rows: 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw 3vw ;
+  -ms-grid-columns: 3vw ;
+  grid-template-columns: 3vw;
+  -ms-grid-rows: 3vw;
+  grid-template-rows: 3vw;
 }
