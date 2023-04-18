@@ -28,9 +28,15 @@ $(document).ready(function () {
 
     //activate allowing clicking on piece to create burn circle
     $(".piece").click( function () {
+        console.log("click");
         expandCircle($(this));
     });
 });
+
+// ~~~~~~~~~~~~~~~~~~~~~~~
+// dynamic load code
+// ~~~~~~~~~~~~~~~~~~~~~~~
+
 
 //dynamically load grid column/row css and pieces
 function loadColumnsRowsPieces() {
@@ -71,31 +77,150 @@ function setPieceSizeVW() {
     }
 }
 
-//ideas for the way to do circle - recursive
-//assign ids to each piece
-//first four surrounding initial piece are assigned a quadrant like in cartesian system
-//q1 expands forward one and one above current piece
-//q2 expands back one and one above
-//q3 expands back one and down one
-//q4 expands forward one and down one
+// ~~~~~~~~~~~~~~~~~~~~~~~
+// circle expansion code
+// ~~~~~~~~~~~~~~~~~~~~~~~
 
-//every expansion, add those pieces to an array. those are the next pieces to iterate on. array will be of variable length.
-//maybe four different arrays for each quadrant?
-
-var circlePieces = [];
+var quadLeads = [0,0,0,0,0];
 
 function expandCircle(firstPiece) {
-    circlePieces.push(firstPiece);
+    //push piece zero, the center of the circle
+    quadLeads[0] = firstPiece;
+    //set first four quad leads
     findFirstFour(firstPiece);
 
-    console.log(circlePieces);
-
     //for loop where you call each quadrant
+    let delay = 0; //animation delay value; increments each time after all four quadrants have been expanded
+    let countFinishedQuads = 0; //counts number of finished quadrants
+    let timeout = 0; //debug timeout in case while loop is broken
+    let outOfPieces = 0; //check if this quadrant is finished
+
+    //expand each quadrant while not all quadrants are done expanding
+    while (countFinishedQuads < 1) {
+        //since while loop has proceeded past initial check, it must mean that the number of finished quads is not yet four so reset the count
+        countFinishedQuads = 0;
+
+        for (let q = 1; q <= 1; q++) {
+            //expandQuadrants returns 0 if successful round of expansion. returns 1 if quadrant is completely expanded.
+            outOfPieces = 0;
+
+            //maybe set animation timeouts within the functions themselves?
+            //setTimeout(() => { outOfPieces = expandQuadrants(q, circlePieces[q]); }, delay*50);
+            outOfPieces = expandQuadrants(q, delay, quadLeads[q]);
+
+            if (outOfPieces) {
+                countFinishedQuads++;
+            }
+        }
+
+        //increment delay to have staggered animation effect between rounds
+        delay++;
+
+        console.log(countFinishedQuads);
+
+
+        //------------
+        //debug
+        timeout++;
+        
+        if (timeout > 10000) {
+            alert("loop timeout");
+            break;
+        }
+        //------------
+    }
+
+
     //q functions will return an array of pieces that you can push onto end of big array where at the end you will call animation with delays
     //remember to add initial four to array first
     //when you set delays, set them in groups of 4^n, starting at n=0 to start burn in center, meaning first four one delay, next eight have next delay, and so on
+}
 
+//given a quadrant number and the current node, expand outward
+function expandQuadrants(quadrant, delay, currPiece) {
+    let horizFactor = 1; //horizontal expansion direction changes according which quad
 
+    //prepare to set next piece id
+    let thisID = parseInt(currPiece.attr("id").substring(1));
+    //set up like cartesian coordinate plane. If q1 or q2, expand upward. If q3 or q4, expand downward. If q2 or q3, expands to left. If q1 or q4, expand to right.
+    if (quadrant == 2 || quadrant == 3) {
+        horizFactor = -1; 
+    }
+
+    //STEP 1: expand horizontally
+    nextHorizID = thisID + horizFactor;
+    nextHorizPiece = $("#p" + nextHorizID);
+
+    //if no next horizontal piece, then move to diagonal and continue process
+    if (!nextHorizPiece.length) {
+        let diagonalID = quadrant < 3 ? (thisID + (limitCol + 2) + horizFactor) : (thisID - (limitCol + 2) + horizFactor); //ugh vertical
+        
+        if ($("#p" + diagonalID).length) {
+            quadLeads[quadrant] = $("#p" + diagonalID);
+            expandQuadrants(quadrant, $(nextID + diagonalID));
+            return 0;
+        }
+
+        //error code 1: no more nodes to expand so end this !quadrant's! expansion
+        console.log("reached end");
+        return 1;
+    }
+
+    quadLeads[quadrant] = nextHorizPiece;
+
+    //just burn them as they go and not add to array? because when it reachs the edges the number of nodes start to go down again and that doesn't work so well
+    burnOnePiece(delay, nextHorizPiece);
+    nextHorizPiece.removeClass('burn');
+
+    cascadeQuadrant(quadrant, horizFactor, delay, quadLeads[quadrant]);
+
+    //code 0: expansion successful, and there are still more nodes to expand. End this !round! of expansion.
+    return 0;
+}
+
+//burn one piece at a time with delay (and maybe remove it too not sure if that will work)
+function burnOnePiece(delay, currPiece) {
+    setTimeout(() => { currPiece.addClass('burn'); }, delay*50);
+}
+
+//recursive function to cascade up or down depending on quadrant
+function cascadeQuadrant(quadrant, horizFactor, delay, currPiece) {
+    console.log("i\'ve received ");
+    console.log(currPiece);
+    nextVertPiece = getVerticalPiece(quadrant, currPiece);
+    
+    console.log("This is the next vert piece to be cascaded: " + nextVertPiece);
+    //if this is a valid piece i.e. we haven't run out of pieces to add, then add to appropriate quadrant array
+    if (nextVertPiece.length) {
+        burnOnePiece(delay, nextVertPiece);
+        nextVertPiece.removeClass('burn');
+        console.log("vertical cascade addition");
+    }
+
+    //get diagonal
+    let diagonalID = parseInt(nextVertPiece.attr("id").substring(1)) - horizFactor;
+    //if there is another diagonal node, repeat the above process on that node
+    //THIS CURRENTLY DOES NOT STOP AT THE QUADRANT EDGE BUT KEEPS GOING, SEE IF THAT IS ACTUALY A PROBLEM BECAUSE IT WILL DOULBE ADD WITH OTHER QUADRANTS
+    if ($(diagonalID).length) {
+        console.log("I send the next iteration");
+        console.log($("#p" + diagonalID));
+        cascadeQuadrant(quadrant, horizFactor, delay, $("#p" + diagonalID));
+    }
+}
+
+//helper function to cascadeQuadrant
+//get the next vertical piece, whether that is up or down
+function getVerticalPiece(quadrant, currPiece) {
+    let thisID = parseInt(currPiece.attr("id").substring(1));
+    let nextVertID;
+    
+    if (quadrant < 3) {
+        nextVertID = "#p" + (thisID - Math.trunc(limitCol + 2));
+    } else {
+        nextVertID = "#p" + (thisID + Math.trunc(limitCol + 2));
+    }
+    //get next vertical piece
+    return $(nextVertID);
 }
 
 //calculate ids of first four based on given piece and push them to circlePieces array
@@ -111,10 +236,9 @@ function findFirstFour(firstPiece) {
     let top = $("#p" + (thisIDnum-vertDiff));
     let bottom = $("#p" + (thisIDnum+vertDiff));
 
-    //push to full array
-    circlePieces.push(right, left, top, bottom);
-}
-
-function getVerticalDifference(currPiece) {
-
+    //set as each quadrant's leads in the quadLeads array
+    quadLeads[1] = right;
+    quadLeads[2] = top;
+    quadLeads[3] = left;
+    quadLeads[4] = bottom;
 }
