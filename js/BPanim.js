@@ -2,8 +2,6 @@
 var w = window.innerWidth;
 var h = window.innerHeight;
 
-//put in function maybe but needs global scope anyway so whatever
-
 //convert piece size in vw to px
 let pieceSizeVW = setPieceSizeVW();
 console.log(pieceSizeVW + "vw per piece");
@@ -15,12 +13,17 @@ let columns = pieceSize+ "px";
 let rows = pieceSize + "px";
 
 //set limits on number of columns/rows dependent on window size
-let limitCol = w/pieceSize;
-let limitRow = h/pieceSize;
+let limitCol = Math.trunc(w/pieceSize);
+let limitRow = Math.trunc(h/pieceSize);
 
 console.log(limitCol + " grid columns");
 console.log(limitRow + " grid rows");
 console.log(limitCol*limitRow + " pieces total");
+
+var sheet = document.styleSheets[2];
+var rules = sheet.cssRules || sheet.rules;
+
+rules[0].style.animation = '0.5s burn-grow forwards';
 
 $(document).ready(function () {
     //dynamically load grid column/row css and pieces
@@ -28,9 +31,13 @@ $(document).ready(function () {
 
     //activate allowing clicking on piece to create burn circle
     $(".piece").click( function () {
-        console.log("click");
         expandCircle($(this));
     });
+});
+
+//reload to adjust to new resolution; changes number of pieces loaded and size of each piece
+$(window).on('resize', function () {
+    location.reload();
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~~~
@@ -58,9 +65,6 @@ function loadColumnsRowsPieces() {
     for (let j = 0; j < limitCol*(limitRow+5); j++) {
         $('#dense-grid').append("<div class=\"piece\" id=\"p" + j + "\"><div>");
         }
-        
-    //modify the css file or just use inline?
-    //document.getElementById("dense-grid").style.gridTemplateColumns = columns;
 }
 
 function setPieceSizeVW() {
@@ -72,9 +76,16 @@ function setPieceSizeVW() {
         return 4;
     } else if (w < 1500) {
         return 5;
-    } else {
+    } else if (w < 2500) {
         return 8;
+    } else {
+        return 25;
     }
+}
+
+//helper function get id because i'm so lazy
+function getPieceID(piece) {
+    return parseInt(piece.attr("id").substring(1));
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~
@@ -89,6 +100,14 @@ function expandCircle(firstPiece) {
     //set first four quad leads
     findFirstFour(firstPiece);
 
+    let thisID = getPieceID(firstPiece);
+    let rowPos = thisID % (limitCol+1);
+    let columnTopLimit = thisID + Math.trunc(limitCol+1 - rowPos);
+    let columnBottomLimit = thisID - rowPos;
+
+    console.log(columnTopLimit);
+    console.log(columnBottomLimit);
+
     //for loop where you call each quadrant
     let delay = 0; //animation delay value; increments each time after all four quadrants have been expanded
     let countFinishedQuads = 0; //counts number of finished quadrants
@@ -101,17 +120,19 @@ function expandCircle(firstPiece) {
         quadLeads[i].removeClass('burn');
     }
 
+    let expansionLimit;
     //expand each quadrant while not all quadrants are done expanding
     while (countFinishedQuads < 4) {
         //since while loop has proceeded past initial check, it must mean that the number of finished quads is not yet four so reset the count
         countFinishedQuads = 0;
 
-        for (let q = 1; q <= 4; q++) {
+        for (let q = 1; q <=4; q++) {
             //expandQuadrants returns 0 if successful round of expansion. returns 1 if quadrant is completely expanded.
             outOfPieces = 0;
 
-            outOfPieces = expandQuadrants(q, delay, quadLeads[q]);
-            console.log("expand output: " + outOfPieces);
+            expansionLimit = (q==1 || q==4) ? columnBottomLimit : columnTopLimit;
+            outOfPieces = expandQuadrants(q, expansionLimit, delay, quadLeads[q]);
+            //console.log("expand output: " + outOfPieces);
 
             if (outOfPieces) {
                 countFinishedQuads++;
@@ -134,12 +155,11 @@ function expandCircle(firstPiece) {
 }
 
 //given a quadrant number and the current node, expand outward
-function expandQuadrants(quadrant, delay, currPiece) {
+function expandQuadrants(quadrant, expansionLimit, delay, currPiece) {
     let horizFactor = 1; //horizontal expansion direction changes according which quad
     
     //STEP 1:
     //burn the current quadLead piece
-
     burnOnePiece(delay, currPiece);
     currPiece.removeClass('burn');
     //cascade up/down from current piece
@@ -155,38 +175,56 @@ function expandQuadrants(quadrant, delay, currPiece) {
         horizFactor = setShapeBasedOnWindow(); 
     }
 
+    //get next id
     nextHorizID = thisID + horizFactor;
-    nextHorizPiece = $("#p" + nextHorizID);
-
-    //if no next horizontal piece, then move to diagonal and continue process
-    if (!nextHorizPiece.length) {
-        let diagonalID = quadrant < 3 ? (thisID - (limitCol + 2) + horizFactor) : (thisID + (limitCol + 2) + horizFactor); //ugh vertical
-        
-        if ($("#p" + diagonalID).length) {
-            quadLeads[quadrant] = $("#p" + diagonalID);
-            expandQuadrants(quadrant, $(nextID + diagonalID));
-            return 0;
+    
+    //check if this piece is past expansion limits i.e. has it exceeded the original piece's row?
+    if (quadrant == 1 || quadrant == 4) {
+        if (nextHorizID < expansionLimit) {
+            return 1;
         }
-
-        //error code 1: no more nodes to expand so end this !quadrant's! expansion
-        console.log("reached end");
-        return 1;
+    } else {
+        if (nextHorizID > expansionLimit) {
+            return 1;
+        }
     }
 
+    nextHorizPiece = $("#p" + nextHorizID);
+
+    //set this next piece as the next quad lead
     quadLeads[quadrant] = nextHorizPiece;
 
     //code 0: expansion successful, and there are still more nodes to expand. End this !round! of expansion.
     return 0;
 }
 
-//burn one piece at a time with delay (and maybe remove it too not sure if that will work)
-function burnOnePiece(delay, currPiece) {
-    setTimeout(() => { currPiece.addClass('burn'); }, delay*50);
+//recursive function to cascade up or down depending on quadrant
+function cascadeQuadrant(quadrant, horizFactor, delay, currPiece) {
+    
+    let nextVertPiece = getVerticalPiece(quadrant, currPiece);
+
+    //if this is a valid piece i.e. we haven't run out of pieces to add, then burn it. otherwise, return.
+    if (!nextVertPiece.length) {
+        console.log("empty");
+        return;
+    }
+
+    burnOnePiece(delay, nextVertPiece);
+    nextVertPiece.removeClass('burn');
+
+    //get diagonal
+    let diagonalID = (quadrant == 2 || quadrant == 3) ? parseInt(nextVertPiece.attr("id").substring(1)) + horizFactor : parseInt(nextVertPiece.attr("id").substring(1)) - horizFactor;
+
+    //if there is another diagonal node, repeat the above process on that node
+    //THIS CURRENTLY DOES NOT STOP AT THE QUADRANT EDGE BUT KEEPS GOING, SEE IF THAT IS ACTUALY A PROBLEM BECAUSE IT WILL DOULBE ADD WITH OTHER QUADRANTS
+    if ($("#p" + diagonalID).length) {
+        cascadeQuadrant(quadrant, horizFactor, delay, $("#p" + diagonalID));
+    }
 }
 
 function setShapeBasedOnWindow() {
     if (w < 480) {
-        return 1;
+        return -1;
     } else if (w < 768) {
         return -1;
     } else if (w < 1024) {
@@ -198,27 +236,9 @@ function setShapeBasedOnWindow() {
     }
 }
 
-//recursive function to cascade up or down depending on quadrant
-function cascadeQuadrant(quadrant, horizFactor, delay, currPiece) {
-    console.log("i\'ve received ");
-    console.log(currPiece);
-    nextVertPiece = getVerticalPiece(quadrant, currPiece);
-
-    //if this is a valid piece i.e. we haven't run out of pieces to add, then add to appropriate quadrant array
-    if (!nextVertPiece.length) {
-        return;
-    }
-
-    burnOnePiece(delay, nextVertPiece);
-    nextVertPiece.removeClass('burn');
-
-    //get diagonal
-    let diagonalID = parseInt(nextVertPiece.attr("id").substring(1)) - horizFactor;
-    //if there is another diagonal node, repeat the above process on that node
-    //THIS CURRENTLY DOES NOT STOP AT THE QUADRANT EDGE BUT KEEPS GOING, SEE IF THAT IS ACTUALY A PROBLEM BECAUSE IT WILL DOULBE ADD WITH OTHER QUADRANTS
-    if ($(diagonalID).length) {
-        cascadeQuadrant(quadrant, horizFactor, delay, $("#p" + diagonalID));
-    }
+//burn one piece at a time with delay (and maybe remove it too not sure if that will work)
+function burnOnePiece(delay, currPiece) {
+    setTimeout(() => { currPiece.addClass('burn'); }, delay*50);
 }
 
 //helper function to cascadeQuadrant
@@ -228,9 +248,9 @@ function getVerticalPiece(quadrant, currPiece) {
     let nextVertID;
     
     if (quadrant < 3) {
-        nextVertID = "#p" + (thisID - Math.trunc(limitCol + 2));
+        nextVertID = "#p" + (thisID - Math.trunc(limitCol + 1));
     } else {
-        nextVertID = "#p" + (thisID + Math.trunc(limitCol + 2));
+        nextVertID = "#p" + (thisID + Math.trunc(limitCol + 1));
     }
     //get next vertical piece
     return $(nextVertID);
@@ -243,7 +263,7 @@ function findFirstFour(firstPiece) {
     let thisIDnum = parseInt(thisIDstr.substring(1));
 
     //calculate left right top and bottom ids
-    let vertDiff = Math.trunc(limitCol + 2);
+    let vertDiff = Math.trunc(limitCol + 1);
     let right = $("#p" + (thisIDnum+1));
     let left = $("#p" + (thisIDnum-1));
     let top = $("#p" + (thisIDnum-vertDiff));
