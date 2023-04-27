@@ -114,8 +114,7 @@ function expandCircle(firstPiece) {
 
     //burn first five
     for (let i = 0; i < 5; i++) {
-        //console.log(quadLeads[i])
-        burnOnePiece(delay, 0, quadLeads[i]);
+        burnOnePiece(delay, quadLeads[i]);
         quadLeads[i].removeClass('burn');
     }
 
@@ -129,28 +128,25 @@ function expandCircle(firstPiece) {
 
         for (let q = 1; q <= 4; q++) {
             outOfPieces = 0;
-
-            if (!quadLeads[q]) {
-                continue;
-            }
             
-            // //have fun with shapes
-            // if (w < 480) {
+            //have fun with shapes - change expansion limits to change the shape
+            if (w < 768) {
+                q1Limit = 1000; //arbitrary top limit for small devices - prob won't generate more than 1000 pieces total
+                q3Limit = 0;
+             } else if (w < 1024) {
                 
-            // } else if (w < 768) {
+             } else if (w < 1500) {
                 
-            // } else if (w < 1024) {
-                
-            // } else if (w < 1500) {
-                
-            // } else {
-            //     if (q == 2 || q == 3) {
-            //         continue;
-            //     }
-                
+            } else {                
+                q1Limit = q1Limit + limitCol;
+                quadLeads[2] = null;
+                quadLeads[3] = null;
+                q4Limit = q4Limit + limitCol;
+            }
 
-            // }
+            if (!quadLeads[q]) { countFinishedQuads++; continue;}
 
+            //set limits per quadrant
             switch (q) {
                 case 1: expansionLimit = q1Limit; break;
                 case 2: expansionLimit = q2Limit; break;
@@ -161,11 +157,11 @@ function expandCircle(firstPiece) {
             outOfPieces = expandQuadrants(q, expansionLimit, delay, quadLeads[q]);//expandQuadrants returns 0 if successful round of expansion. returns 1 if quadrant is completely expanded.
             //console.log("expand output: " + outOfPieces);
 
-            if (outOfPieces) {
-                countFinishedQuads++;
-            }
+            if (outOfPieces) { countFinishedQuads++; }
         }
     }
+    
+    if(w>1500)setTimeout(() => { location.reload(); }, delay*100);
 }
 
 //given a quadrant number and the current node, expand outward
@@ -177,7 +173,7 @@ function expandQuadrants(quadrant, expansionLimit, delay, currPiece) {
     burnOnePiece(delay, currPiece);
     currPiece.removeClass('burn');
     //cascade up/down from current piece
-    cascadeQuadrant(quadrant, horizFactor, delay, quadLeads[quadrant]);
+    if (w > 768) { cascadeQuadrant(quadrant, horizFactor, delay, quadLeads[quadrant]); }
 
     //STEP 2:
     //get the next quadLead piece
@@ -201,12 +197,12 @@ function expandQuadrants(quadrant, expansionLimit, delay, currPiece) {
     if (quadrant == 1 || quadrant == 4) {
         
         if (nextHorizID > expansionLimit) {
-            console.log("1 or 4 exceeded");
+            //console.log("1 or 4 exceeded");
             return 1;
         }
     } else {
         if (nextHorizID < expansionLimit) {
-            console.log("2 or 3 exceeded");
+            //console.log("2 or 3 exceeded");
             return 1;
         }
     }
@@ -265,7 +261,7 @@ function setShapeBasedOnWindow() {
 
 //burn one piece at a time with delay (and maybe remove it too not sure if that will work)
 function burnOnePiece(delay, currPiece) {
-    setTimeout(() => { currPiece.addClass('burn'); }, delay*50);
+    setTimeout(() => { currPiece.addClass('burn'); }, delay*100);
 }
 
 //helper function to cascadeQuadrant

@@ -24,3 +24,10 @@ body {
   -ms-grid-rows: 3vw;
   grid-template-rows: 3vw;
 }
+
+.piece:hover, .burn:hover {
+  border-color: orange;
+  -webkit-box-shadow: inset 0px 0px 20px 24px rgba(109, 50, 2, 0.5), 0px 0px 16px 8px #c49806, 0px 0px 60px 40px rgba(156, 39, 3, 0.6), 0px 0px 5px 5px #1c0901eb, inset 0px 0px 5px 5px #c4720f42;
+  -moz-box-shadow: inset 0px 0px 20px 24px rgba(109, 50, 2, 0.5), 0px 0px 16px 8px #c49806, 0px 0px 60px 40px rgba(156, 39, 3, 0.6), 0px 0px 5px 5px #1c0901eb, inset 0px 0px 5px 5px #c4720f42;
+  box-shadow: inset 0px 0px 20px 24px rgba(109, 50, 2, 0.5), 0px 0px 16px 8px #c49806, 0px 0px 60px 40px rgba(156, 39, 3, 0.6), 0px 0px 5px 5px #1c0901eb, inset 0px 0px 5px 5px #c4720f42;
+}
