@@ -133,22 +133,23 @@ function expandCircle(firstPiece) {
             if (!quadLeads[q]) {
                 continue;
             }
+            
+            // //have fun with shapes
+            // if (w < 480) {
+                
+            // } else if (w < 768) {
+                
+            // } else if (w < 1024) {
+                
+            // } else if (w < 1500) {
+                
+            // } else {
+            //     if (q == 2 || q == 3) {
+            //         continue;
+            //     }
+                
 
-            //have fun with shapes
-            if (w < 480) {
-    
-            } else if (w < 768) {
-                
-            } else if (w < 1024) {
-                
-            } else if (w < 1500) {
-                
-            } else {
-                if (q == 2 || q == 3) {
-                    continue;
-                }
-                
-            }
+            // }
 
             switch (q) {
                 case 1: expansionLimit = q1Limit; break;
@@ -157,8 +158,8 @@ function expandCircle(firstPiece) {
                 case 4: expansionLimit = q4Limit; break;
             }
 
-
             outOfPieces = expandQuadrants(q, expansionLimit, delay, quadLeads[q]);//expandQuadrants returns 0 if successful round of expansion. returns 1 if quadrant is completely expanded.
+            //console.log("expand output: " + outOfPieces);
 
             if (outOfPieces) {
                 countFinishedQuads++;
@@ -170,10 +171,6 @@ function expandCircle(firstPiece) {
 //given a quadrant number and the current node, expand outward
 function expandQuadrants(quadrant, expansionLimit, delay, currPiece) {
     let horizFactor = 1; //horizontal expansion direction changes according which quad
-    //set up like cartesian coordinate plane. If q1 or q2, expand upward. If q3 or q4, expand downward. If q2 or q3, expands to left. If q1 or q4, expand to right.
-    if (quadrant == 2 || quadrant == 3) {
-        horizFactor = -1; 
-    }
     
     //STEP 1:
     //burn the current quadLead piece
@@ -190,6 +187,11 @@ function expandQuadrants(quadrant, expansionLimit, delay, currPiece) {
         thisID = parseInt(currPiece.attr("id").substring(1));
     } else {
         return 1;
+    }
+
+    //set up like cartesian coordinate plane. If q1 or q2, expand upward. If q3 or q4, expand downward. If q2 or q3, expands to left. If q1 or q4, expand to right.
+    if (quadrant == 2 || quadrant == 3) {
+        horizFactor = -1; 
     }
 
     //get next id
