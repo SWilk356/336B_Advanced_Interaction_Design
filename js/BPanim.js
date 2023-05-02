@@ -245,20 +245,6 @@ function cascadeQuadrant(quadrant, horizFactor, delay, currPiece) {
     return;
 }
 
-function setShapeBasedOnWindow() {
-    if (w < 480) {
-        return -1;
-    } else if (w < 768) {
-        return -1;
-    } else if (w < 1024) {
-        return -1;
-    } else if (w < 1500) {
-        return -1;
-    } else {
-        return -1;
-    }
-}
-
 //burn one piece at a time with delay (and maybe remove it too not sure if that will work)
 function burnOnePiece(delay, currPiece) {
     setTimeout(() => { currPiece.addClass('burn'); }, delay*100);
