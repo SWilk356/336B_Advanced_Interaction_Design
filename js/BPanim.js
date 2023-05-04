@@ -135,7 +135,7 @@ function expandCircle(firstPiece) {
                 q3Limit = 0;
              } else if (w < 1024) {
                 
-             } else if (w < 1500) {
+             } else if (w < 1440) {
                 
             } else {                
                 q1Limit = q1Limit + limitCol;
