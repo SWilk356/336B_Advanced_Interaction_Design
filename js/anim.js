@@ -52,7 +52,7 @@ function explodeStyle() {
     let rand_x = getRand(-1000, 1000);
     let delay = getRand(0,1);
     let scale = getRand(1,5);
-    let up_down = (window.scrollY == 0) ? 5000 : -5000;
+    let up_down = (window.scrollY == 0) ? -5000 : 5000;
 
     return "{transition-delay: " + delay + "s;" + "transform: translate(" + rand_x + "px," + up_down + "px) rotate(720deg) scale(" + scale + ");}";
 }
