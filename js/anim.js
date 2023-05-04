@@ -22,7 +22,7 @@ $(document).on( "click", '.icon', function() {
         console.log(window.scrollY);
         explodeAnim(big_boom_sheet, "boom", incendoComponents);
         setTimeout(() => { 
-            smoothScroll(750);
+            smoothScroll(850);
         }, 500);
     } else {
         //no animation because doing all those letters bugs out the system CHECK IF IT WORKS ON YOUR OTHER LAPTOP

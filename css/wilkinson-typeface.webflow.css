@@ -204,9 +204,10 @@
 
 #i1 {
   position: relative;
-  left: 2vw;
-  margin-bottom: 5vh;
+  left: 0vw;
+  margin-bottom: 6vh;
   padding-bottom: 5vh;
+  margin-top: -2vh;
 }
 
 #a1 {
